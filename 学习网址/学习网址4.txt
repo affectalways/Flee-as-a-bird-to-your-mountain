@@ -1,0 +1,12 @@
+1.Docker Harbor获取镜像：https://github.com/goharbor/harbor/issues/3360
+2.docker开启远程服务：https://yq.aliyun.com/articles/581105
+3.Harbor 命令行：https://int32bit.me/2016/09/09/Harbor%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/
+4.前端处理Json：https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/JSON
+5.有关flask特别有意思的网址：http://www.bjhee.com/flask-heroku.html
+6.Flask进阶：https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+7.Flask下载地址：https://china-testing.github.io/flask_books.html
+8.Flask进阶中文版：https://github.com/affectalways/The-Flask-Mega-Tutorial-zh
+9.Flask进阶英文版：https://download.csdn.net/download/mating3447/10258677
+10.Docker 配置远程连接：https://www.cnblogs.com/hongdada/p/11512901.html
+11.Docker Harbor安装：https://wangfanggang.com/Docker/harbor/
+12.Python psutil：https://www.liaoxuefeng.com/wiki/1016959663602400/1183565811281984

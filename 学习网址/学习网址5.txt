@@ -1,0 +1,7 @@
+1.文档地址：https://readthedocs.org/
+2.python cookbook：https://python3-cookbook.readthedocs.io/zh_CN/latest/
+3.Json使用：https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/JSON
+4.jQuery前端处理Json：https://api.jquery.com/jquery.getjson/
+5.前后端分离的API服务器：eolinker
+6.前后端分离：https://blog.csdn.net/fuzhongmin05/article/details/81591072、https://www.cnblogs.com/leotsai/p/vuejs-front-backend-architecture.html
+7.服务器压力测试

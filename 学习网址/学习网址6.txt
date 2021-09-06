@@ -1,0 +1,13 @@
+1.Python List Dict线程安全：https://www.jianshu.com/p/9709718b571d
+2.flask-session作用：https://www.cnblogs.com/52forjie/p/8282453.html
+3.vue.js前端运行：https://segmentfault.com/a/1190000009871504
+4.redis windows安装：https://blog.csdn.net/qq_37380557/article/details/88173468
+5.Flask重写Response：https://www.cnblogs.com/captainmeng/p/8663431.html
+6.Flask 跨域请求：https://blog.zengrong.net/post/modify-the-response-head-in-flask/
+7.Flask重写HTTPException：https://www.google.com/search?q=flask+%E9%87%8D%E5%86%99HTTPException&oq=flask+%E9%87%8D%E5%86%99HTTPException&aqs=chrome..69i57.3427j0j8&sourceid=chrome&ie=UTF-8
+8.registry2仓库：https://www.jianshu.com/p/6a7b80122602
+9.Auto Docker需要自己的仓库
+10.Harborclient使用：https://int32bit.me/2016/09/09/Harbor%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/
+11.Docker-py API：https://docker-py.readthedocs.io/en/stable/
+12.CURL用法：https://blog.csdn.net/b1303110335/article/details/78213281、https://blog.csdn.net/u012340794/article/details/71440604
+13.flask ajax post将ImmutableMultiDict转成dict：https://stackoverflow.com/questions/13522137/in-flask-convert-form-post-object-into-a-representation-suitable-for-mongodb

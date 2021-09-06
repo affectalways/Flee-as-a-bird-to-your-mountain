@@ -1,0 +1,38 @@
+1.Python requests解决乱码问题：https://blog.csdn.net/chaowanghn/article/details/54889835
+
+2.Kali安装docker：https://www.webshell.cc/6635.html
+
+3.docker 安装 vim：https://sxfblog.com/index.php/archives/334.html
+
+4.pycharm 编辑远程服务器代码：http://www.xzhewei.com/Tutorial-%E6%95%99%E7%A8%8B/remote-debug/
+
+5.CVE-2019-15107：https://blog.firosolutions.com/exploits/webmin/
+
+6.pandas 空值判断：https://www.jianshu.com/p/192140248e19
+
+7.Python 字符串转浮点数：https://blog.csdn.net/mx_windforce/article/details/9009455
+
+8.pandas 选择最后一列：https://cloud.tencent.com/developer/ask/48204
+
+9.webmin CVE-2019-15107：https://blog.firosolutions.com/exploits/webmin/
+
+10.Python导入上层目录：http://www.361way.com/python-import-dif-dir-module/4064.html
+
+11.解决UnicodeEncodeError: 'ascii' codec can't encode character u'\xa0' in position 20: ordinal not in range(128)
+：https://stackoverflow.com/questions/9942594/unicodeencodeerror-ascii-codec-cant-encode-character-u-xa0-in-position-20
+
+12.pandas 根据列值选取：https://blog.csdn.net/htbeker/article/details/80332360
+
+13.大博客：https://88250.b3log.org/my-github-repos
+
+14.pandas：https://www.zybuluo.com/jk88876594/note/802632
+
+15.xpath：data.xpath('//comment()[. = " CVE(CAN)ID: CVE-2019-9022 "]/following-sibling::item[1]')
+	选择文件中的i位于注释等于 CVE(CAN)ID: CVE-2019-9022 的第一个item
+
+https://blog.csdn.net/HeatDeath/article/details/72236492
+
+
+16.python requests具体使用：https://www.cnblogs.com/zhangxinqi/p/9201594.html
+
+17.exim安装：http://0gur1.cc/2019/02/16/Exim-Off-by-one-CVE-2018-6789%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/

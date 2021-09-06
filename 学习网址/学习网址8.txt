@@ -1,0 +1,32 @@
+1.python3内存监控：memory_profiler：https://wxnacy.com/2019/05/05/python-memory-profiler/
+2.在 Flask 项目中使用 Celery：http://liyangliang.me/posts/2015/11/using-celery-with-flask/
+3.弱引用：https://blog.louie.lu/2017/07/29/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-python-%E6%A8%99%E6%BA%96%E5%87%BD%E5%BC%8F%E5%BA%AB%E7%94%A8%E6%B3%95-04-weakref/
+4.强推网址：https://liqiang.io/archive/
+5.python3 schema：https://pypi.org/project/schema/
+6.sqlalchemy：https://docs.sqlalchemy.org/en/13/core/metadata.html
+7.python3 + sqlalchemy: https://www.cnblogs.com/lsdb/p/9835894.html
+8.celery bug：https://www.jianshu.com/p/9e422d9f1ce2
+	https://kuanshijiao.com/2016/08/08/celery1/
+9.celery soft_limit_time: https://github.com/celery/celery/issues/2061
+10.解决Celery不支持soft_limit_time: https://blog.monsterxx03.com/2019/03/28/celery-time-limit-%E7%9A%84%E5%9D%91/
+11.supervisor ：https://1-riverfish.github.io/2017/09/03/Supervisor%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/
+12.sqlalchemy：https://www.cnblogs.com/kirito-c/p/10269485.html
+13.https://www.cnblogs.com/taosiyu/p/12009120.html
+14.celery 进阶：https://www.distributedpython.com/2018/10/26/celery-execution-pool/
+15.git clone之后查看全部分支：https://www.jianshu.com/p/0fe715a7fbb3
+16.rsync使用：
+17.线程、协成：https://www.cnblogs.com/lxmhhy/p/6041001.html
+协程主动释放cpu资源，线程抢占式，进程
+18.python subprocess杀死进程树：https://stackoverflow.com/questions/36952245/subprocess-timeout-failure
+19.python subprocess超时：https://stackoverflow.com/questions/1191374/using-module-subprocess-with-timeout
+20.gevent：https://softlns.github.io/2015/11/28/python-gevent/
+21.gevent讲解：https://sdiehl.github.io/gevent-tutorial/
+22.subprocess实时获取数据：https://stackoverflow.com/questions/18421757/live-output-from-subprocess-command
+23.僵尸进程、孤儿进程：https://www.cnblogs.com/anker/p/3271773.html
+24.sqlalchemy：https://www.cnblogs.com/rednada/p/5520896.html
+25.celery源码分析：https://www.cnblogs.com/makor/p/implement-of-gossip-and-mingle.html
+26.Kombu源码分析：https://liqiang.io/post/kombu-source-code-analysis-part-1
+27.极有意思的讲进程、线程、协程：http://stupidpythonideas.blogspot.com/2015/01/greenlets-threads-and-processes.html
+28.python trace:https://docs.python.org/2/library/trace.html
+29.python LoggingProxy: LoggingProxy
+30.sqlalchemy sqlite database is locked：https://stackoverflow.com/questions/15065037/how-to-increase-connection-timeout-using-sqlalchemy-with-sqlite-in-python

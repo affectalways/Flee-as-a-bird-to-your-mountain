@@ -1,0 +1,26 @@
+1.python导入模块搜索顺序： https://blog.csdn.net/qq_27825451/article/details/100552739
+https://www.cnblogs.com/ljhdo/p/10674242.html
+2.ssh禁用、启用history：https://www.networkworld.com/article/2706270/unix--rewriting-history.html
+https://unix.stackexchange.com/questions/85394/how-to-enable-command-history-of-shell
+3.mysql配置binlog：
+http://www.majianwei.com/archives/8291
+https://www.cnblogs.com/hongdada/p/10983768.html
+https://www.cnblogs.com/linjiqin/p/11520052.html
+4.mysql ibd文件：
+
+5.curl json格式：https://blog.csdn.net/guijiaoba/article/details/78235523
+
+6.celery-execution-pool: https://www.distributedpython.com/2018/10/26/celery-execution-pool/#:~:text=The%20Celery%20worker&text=It%20spawns%20child%20processes%20(or,known%20as%20the%20execution%20pool.
+
+7.celery进阶：https://bk.tencent.com/s-mart/community/question/1065
+https://stackoverflow.com/questions/58290045/django-celery-disable-prefetch-for-one-worker-is-there-a-bug
+
+8.cx_Oracle: https://blog.csdn.net/chuzhuanbo7093/article/details/100983954
+https://stackoverflow.com/questions/61152057/eventlet-breaks-select-poll
+
+9.celery: Cannot route message for exchange 'reply.celery.pidbox': Table empty or key no longer exists.
+Probably the key ('_kombu.binding.reply.celery.pidbox') has been removed from the Redis database.: https://stackoverflow.com/questions/58896295/cannot-route-message-for-exchange-reply-celery-pidbox-table-empty-or-key-no-l
+
+10.LoveIt: 广告：https://github.com/dillonzq/LoveIt/issues/516
+
+11.MySQL/Writing file error (Errcode 28)： https://stackoverflow.com/questions/7415710/mysql-writing-file-error-errcode-28

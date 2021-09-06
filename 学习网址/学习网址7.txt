@@ -1,0 +1,12 @@
+1.Python with：https://yikun.github.io/2016/04/15/%E7%90%86%E8%A7%A3Python%E4%B8%AD%E7%9A%84%E2%80%9Cwith%E2%80%9D/
+
+4.加密：https://www.v2ex.com/t/516159
+5.luks：linux加密方式
+6.flask Response：https://segmentfault.com/a/1190000003987049
+7.Ansible：自动化运维工具。。。建议今晚研究一下。。。  https://www.cnblogs.com/sellsa/category/1339742.html
+8.k8s：https://www.cnblogs.com/ajunyu/p/11217777.html（这篇博客强推）
+9.芋道源码：http://www.iocoder.cn/categories/Tomcat/
+10.防重放：https://www.cnblogs.com/yjf512/p/6590890.html
+11.Flask-cache：http://www.bjhee.com/flask-ext6.html
+12.python redis：https://cloud.tencent.com/developer/article/1151834
+13.werkzeug：https://werkzeug.palletsprojects.com/en/1.0.x/tutorial/

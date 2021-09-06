@@ -1,0 +1,6 @@
+1. AttributeError: module 'select' has no attribute 'poll'
+   Eventlet breaks select.poll
+：
+https://stackoverflow.com/questions/61152057/eventlet-breaks-select-poll
+https://github.com/eventlet/eventlet/issues/608#issuecomment-612359458
+https://github.com/eventlet/eventlet/commit/f63165c0e3c85699ebdb454878d1eaea13e90553

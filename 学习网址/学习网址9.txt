@@ -1,0 +1,18 @@
+1.装饰器：https://www.zhihu.com/question/40220361
+2.sqlite事务隔离级别：https://docs.sqlalchemy.org/en/13/dialects/sqlite.html#serializable-isolation-savepoints-transactional-ddl
+3.git rebase: http://jartto.wang/2018/12/11/git-rebase/
+4.core dump:https://www.geeksforgeeks.org/core-dump-segmentation-fault-c-cpp/
+	https://stackoverflow.com/questions/13654449/error-segmentation-fault-core-dumped
+5.ipv6:https://www.tldp.org/HOWTO/Linux+IPv6-HOWTO/ch22s04.html
+6.apt-get保存deb：https://askubuntu.com/questions/15211/saving-deb-files-from-repositories-to-a-custom-location-for-installing-offline
+7.git错误哦：https://stackoverflow.com/questions/49297153/why-is-it-not-a-commit-and-a-branch-cannot-be-created-from-it
+8.unix socket和tcp socket的区别：https://serverfault.com/questions/124517/whats-the-difference-between-unix-socket-and-tcp-ip-socket
+9.flask源码：https://cizixs.com/2014/11/08/understand-wsgi/
+10.python __call__ 函数：https://www.geeksforgeeks.org/__call__-in-python/
+11.pip下载配置源：https://www.cnblogs.com/maoguy/p/6689512.html
+12.GitHub搭建博客：https://github.com/qiubaiying/qiubaiying.github.io/wiki/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B
+13.hugo建站：https://blog.csdn.net/kikajack/article/details/80413052
+13.主题：https://codeload.github.com/zwbetz-gh/cupper-hugo-theme/zip/master
+	https://themes.gohugo.io/theme/hugo-refresh/
+	https://themes.gohugo.io//theme/hugo-theme-pure/post/markdown-syntax/
+14.全历史：https://www.allhistory.com/

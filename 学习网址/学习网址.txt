@@ -1,0 +1,56 @@
+1.mysql创建数据库指定字符编码和排序规则：https://blog.csdn.net/Love_Legain/article/details/81239023
+
+8.Tomcat web应用部署到根目录：https://blog.csdn.net/Axela30W/article/details/76546735
+
+1.MySQL root设置密码，防止没有密码也能登陆：https://blog.csdn.net/qq_39091609/article/details/78698263
+
+2.supervisor：https://www.huweihuang.com/article/linux/supervisor-usage/
+
+3.spring boot学习网址：https://github.com/search?q=spring
+
+4.python乱码：https://www.crifan.com/unicodeencodeerror_gbk_codec_can_not_encode_character_in_position_illegal_multibyte_sequence/
+
+5.python反编译pyc文件：https://blog.csdn.net/qdseashore/article/details/78584069
+
+6.python反编译教学：https://www.iteye.com/blog/wcf1987-1672542
+
+7.dvwa：https://www.freebuf.com/articles/web/123779.html
+
+8.linux kernel network compare：https://www.google.com/search?q=linux+syn+ack%E4%B8%8D%E5%9B%9E%E5%8C%85&oq=linux+syn+ack%E4%B8%8D%E5%9B%9E%E5%8C%85&aqs=chrome..69i57.12627j0j7&sourceid=chrome&ie=UTF-8，
+https://www.itread01.com/content/1502217601.html，
+https://yangxx.net/?p=3152
+
+
+9.Python pandas读取sqlite3的.db3文件：https://stackoverflow.com/questions/36028759/how-to-open-and-convert-sqlite-database-to-pandas-dataframe
+
+10.Python concurrent.futures使用：https://python-parallel-programmning-cookbook.readthedocs.io/zh_CN/latest/chapter4/02_Using_the_concurrent.futures_Python_modules.html
+https://blog.louie.lu/2017/08/01/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-python-%E6%A8%99%E6%BA%96%E5%87%BD%E5%BC%8F%E5%BA%AB%E7%94%A8%E6%B3%95-06-concurrent-futures/
+
+11.Python2使用concurrent.futures
+
+12.Python os._exit，sys.exit : https://www.zhihu.com/question/21187839
+
+13.操作系统关机发送信号：https://www.freebsd.org/doc/zh_CN/books/handbook/boot-shutdown.html
+
+14.Python捕获信号 atexit：https://docs.python.org/zh-cn/3/library/atexit.html
+
+15.Python捕获信号 signal：
+
+16.Linux开机自启动：https://www.leocode.net/article/index/18.html
+https://unix.stackexchange.com/questions/3537/etc-rc-d-vs-etc-init-d
+
+
+17.Linux定时任务crontab：https://blog.csdn.net/qq_16633405/article/details/84394809
+https://ask.hellobi.com/blog/liangyong/36
+
+18.Linux curl: (6) Could not resolve host: www.baidu.com;：https://blog.csdn.net/Naught00/article/details/54880864
+
+19.python 2.7版本解决TypeError: 'encoding' is an invalid keyword argument for this function：https://www.cnblogs.com/milian0711/p/7132377.html
+
+20.博客：https://blog.joefom.com/archives/category/webservers/nginx
+
+21.Linux 配置开机启动：https://forum.mycontroller.org/topic/122/launch-start-sh-on-startup-or-like-a-service/5
+
+22.Linux 开机启动流程：https://zhuanlan.zhihu.com/p/80921313
+
+23.Linux 自启动脚本成功：https://blog.csdn.net/qq_21816375/article/details/87603103

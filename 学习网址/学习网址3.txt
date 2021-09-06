@@ -1,0 +1,52 @@
+1.Python自然语言处理文本相似度：https://cuiqingcai.com/6101.html
+
+2.nlp相关处理：https://blog.csdn.net/huyoo/article/details/12188573
+
+3.文本相似度TF-iDF：https://www.cnblogs.com/liangjf/p/8283519.html
+
+4.Python代码加密：https://thief.one/2019/03/21/1/
+
+5.Mysql Unix Socket：https://docs.oracle.com/cd/E17952_01/mysql-5.1-en/can-not-connect-to-server.html
+		     https://stackoverflow.com/questions/4448467/cant-connect-to-local-mysql-server-through-socket-var-lib-mysql-mysql-sock
+
+6.MySQL查询包含字符串：https://www.cnblogs.com/lcngu/p/6200491.html
+
+7.git clone 和 git pull的区别：https://gitbook.tw/chapters/github/clone-vs-pull.html
+
+8.docker 镜像、容器的导入导出：https://www.jianshu.com/p/4e862a2a2d03
+
+9.docker拉取指定版本：https://blog.csdn.net/kevinsingapore/article/details/81388611
+
+10.docker教程：https://yeasy.gitbooks.io/docker_practice/repository/registry.html
+
+11.工作离线安装docker：apt-get install docker-compose，docker-compose干嘛的？
+
+12.python logging：https://titangene.github.io/article/python-logging.html
+
+13.docker私有仓库搭建：https://www.jianshu.com/p/9cf9d1c8b00c
+
+14.docker 部署mysql，并设置远程访问：https://www.jianshu.com/p/e7ac0717be00
+
+15.docker部署远程仓库
+（1）下载registry：docker pull registry
+（2）运行docker run -d -p 5000:5000 -restart=always --name docker-registry registry
+（3）查看是否运行成功：curl -X GET http://127.0.0.1:5000/v2/_catalog 收到的响应如下，是个json对象，其中repositories对应的值是空的json数组，表示目前仓库里还没有镜像：
+{"repositories":[]}
+
+16.Harbor的搭建：https://wangfanggang.com/Docker/harbor/
+
+17.Docker换源：https://idce.com/archive/q5lRJl2b?id=VXYj
+
+18.修改docker的默认网段：https://blog.51cto.com/lisea/1940023
+
+19.Docker简介：https://www.cnblogs.com/Wolfmanlq/p/6107192.html
+
+20.Docker没有vi，如何修改文本：https://blog.csdn.net/hankeo/article/details/89228185
+
+21.Docker不知道root密码：https://stackoverflow.com/questions/28721699/root-password-inside-a-docker-container
+
+22.python urlparse：https://www.cnblogs.com/stemon/p/6602185.html
+
+23.git commit git pull :https://stackoverflow.com/questions/18529206/when-do-i-need-to-do-git-pull-before-or-after-git-add-git-commit, https://zhangbuhuai.com/post/git-rebase.html
+
+24.Docker防止网络冲突：https://blog.csdn.net/shmnh/article/details/84588411、https://www.cnblogs.com/zejin2008/p/7105122.html
