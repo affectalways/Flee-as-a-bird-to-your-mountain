@@ -1,0 +1,85 @@
+## Cookie 和 Session 的关系和区别是什么？
+
+
+
+## 前言
+
+HTTP是无状态协议，就是指这一次请求和上一次请求没有任何关系，没有关联，这样的好处是**快速**。但有时我们又需要某个域名下的所有网站能够共享某些数据（**一个用户的所有请求操作都应该属于同一个会话**），于是**cookie**和**session**就出现了。
+
+流程：
+
+- 客户端发送一个HTTP请求到服务端
+- 服务端接收到客户端请求后，建立一个session，并发送一个HTTP响应到客户端，这个响应头，其中包含了**Set-Cookie**头部。该头部包含了SessionID，会在客户端设置一个属于这个域名下的cookie
+- 在客户端发起第二次请求时，浏览器会自动在请求头中添加cookie（包括SessionID）
+- 服务器接收请求，分解cookie，验证信息，核对成功后返回响应给客户端
+
+## cookie
+
+### 定义
+
+类型为“**小型文本文件**”，是某些网站为了辨别用户身份，进行Session跟踪而储存在用户本地终端上的数据，由用户客户端计算机暂时或永久保存的信息。
+
+### 特点/性质
+
+#### 具有保质期
+
+Cookie有永久的也有临时的，Cookie中的maxAge决定其有效期，单位为秒。
+
+- maxAge为正数时，则表示Cookie会在maxAge秒后自动失效。这种情况下，浏览器会将Cookie写到对应的Cookie文件中。无论关闭浏览器还是电脑，只有时间到了此Cookie才会失效。
+- maxAge为负数时（默认值为-1），则表示此Cookie仅在本浏览器窗口以及本窗口打开的子窗口内有效，关闭窗口即失效。这类Cookie为临时性，Cookie信息保存在浏览器内存中。
+- maxAge为0，则表示删除该Cookie。
+
+#### 满足同源策略
+
+Cookie不可跨域名，这由Cookie的隐私安全机制决定，禁止网站非法获取其他网站的Cookie。正常情况下，同一个一级域名下的两个二级域名不能交互使用Cookie。
+
+#### 内存大小受限
+
+Cookie有个数和大小的限制，大小一般为4k。
+
+![2376637829-5b8cb6a4db504_articlex.png](https://segmentfault.com/img/bVbGSot)
+
+#### 安全性不足
+
+Cookie文件可以在本地被更改，所以不应该把敏感数据放在Cookie中，并且要注意加密。
+
+#### 不能直接修改、删除
+
+- 修改：只需要新建一个同名的Cookie，添加到response中覆盖原来的Cookie。
+- 删除：只需要新建一个同名的Cookie，并将maxAge设置为0，并添加到response中覆盖原来的Cookie。
+
+## Session
+
+### 定义
+
+Session（会话）是另一种记录客户状态的机制，保存在服务器上。客户端浏览器访问服务器时，服务器把客户端信息以某种形式记录在服务器上，当客户端浏览器再次访问时只需要从该Session中查找该客户的状态即可。
+
+### 实现
+
+- 首先，服务器开辟Session存储空间并创建Session，服务器会为该Session生成唯一的SessionID并添加相应内容
+- 服务器将SessionID发送给客户端，客户端将其保存
+- 当客户端再次发送请求时会带上SessionID
+- 服务器接收请求后根据SessionID找到相应的Session
+
+### 特点/性质
+
+#### 具有生命周期
+
+Session在用户第一次访问服务器时自动创建，生成后，只要用户继续访问，服务器就会更新Session的最后访问时间，并维护该Session。
+
+#### 具有有效期
+
+Session有maxInactiveInterval属性，为超时时间。如果一个用户超过了超时时间没访问过服务器，Session就自动失效。
+
+#### 一般与Cookie共同使用（依赖关系）
+
+Session需要使用Cookie作为识别标志。HTTP协议是无状态的，Session不能依据HTTP连接来判断是否为同一客户，因此服务器向客户端浏览器发送一个名为JSESSIONID的Cookie，它的值为该Session的id（也就是HttpSession.getId()的返回值）。Session依据该Cookie来识别是否为同一用户。
+
+## Cookie与Session的关系
+
+### 区别
+
+- Cookie数据存放在客户的浏览器上，Session数据放在服务器上
+- Cookie不是很安全，Session更加安全
+- Session会在一定时间保存在服务器上。当访问增多，会占用服务器的性能。为减轻压力，可使用Cookie
+- Cookie大小有限制
