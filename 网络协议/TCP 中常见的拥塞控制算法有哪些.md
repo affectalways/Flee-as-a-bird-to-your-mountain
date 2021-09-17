@@ -52,7 +52,7 @@ Reno适用于低延时、低带宽的网络，它将拥塞控制的过程分为�
   >
   > 当这 4 个的 ACK 确认到来的时候，每个确认 cwnd 增加 1， 4 个确认 cwnd 增加 4，于是就可以比之前多发 4 个，所以这一次能够发送 8 个。
 
-  ![](F:\Flee-as-a-bird-to-your-mountain\网络协议\TCP拥塞控制-慢启动.jpg)
+  ![](https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/TCP%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6-%E6%85%A2%E5%90%AF%E5%8A%A8.jpg?raw=true)
 
   
 
@@ -80,7 +80,7 @@ Reno适用于低延时、低带宽的网络，它将拥塞控制的过程分为�
 
   - 当 8 个 ACK 应答确认到来时，每个确认增加 1/8，8 个 ACK 确认 cwnd 一共增加 1，于是这一次能够发送 9 个 `MSS` 大小的数据，变成了**线性增长。**
 
-    ![](F:\Flee-as-a-bird-to-your-mountain\网络协议\拥塞避免算法.jpg)
+    ![](https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/%E6%8B%A5%E5%A1%9E%E9%81%BF%E5%85%8D%E7%AE%97%E6%B3%95.jpg?raw=true)
 
   所以，我们可以发现，拥塞避免算法就是将原本慢启动算法的指数增长变成了线性增长，还是增长阶段，但是增长速度缓慢了一些。
 
@@ -94,7 +94,7 @@ Reno适用于低延时、低带宽的网络，它将拥塞控制的过程分为�
 
   当接收方发现丢了一个中间包的时候，发送三次前一个包的 ACK，于是发送端就会快速地重传，不必等待超时再重传。
 
-  ![](F:\Flee-as-a-bird-to-your-mountain\网络协议\快重传.png)
+  ![](https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/%E5%BF%AB%E9%87%8D%E4%BC%A0.png?raw=true)
 
   TCP 认为这种情况不严重，因为大部分没丢，只丢了一小部分，则 `ssthresh` 和 `cwnd` 变化如下：
 
@@ -120,7 +120,7 @@ Reno适用于低延时、低带宽的网络，它将拥塞控制的过程分为�
   - 如果再收到重复的 ACK，那么 cwnd 增加 1；
   - 如果收到新数据的 ACK 后，把 cwnd 设置为第一步中的 ssthresh 的值，原因是该 ACK 确认了新的数据，说明从 duplicated  ACK 时的数据都已收到，该恢复过程已经结束，可以回到恢复之前的状态了，也即再次进入拥塞避免状态；
 
-  ![](F:\Flee-as-a-bird-to-your-mountain\网络协议\快恢复.jpg)
+  ![](https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/%E5%BF%AB%E6%81%A2%E5%A4%8D.jpg?raw=true)
 
 也就是没有像「超时重传」一夜回到解放前，而是还在比较高的值，后续呈线性增长。
 
@@ -134,7 +134,7 @@ Reno适用于低延时、低带宽的网络，它将拥塞控制的过程分为�
 
 BBR 算法不将出现丢包或时延增加作为拥塞的信号，而是认为当网络上的数据包总量大于瓶颈链路带宽和时延的乘积时才出现了拥塞，所以 BBR 也称为基于拥塞的拥塞控制算法（Congestion-Based Congestion Control），其适用网络为高带宽、高时延、有一定丢包率的长肥网络，可以有效降低传输时延，并保证较高的吞吐量，与其他两个常见算法发包速率对比如下：
 
-![](F:\Flee-as-a-bird-to-your-mountain\网络协议\BBR.jpg)
+![](https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/BBR.jpg?raw=true)
 
 BBR 算法周期性地探测网络的容量，交替测量一段时间内的带宽极大值和时延极小值，将其乘积作为作为拥塞窗口大小，使得拥塞窗口始的值始终与网络的容量保持一致。
 
