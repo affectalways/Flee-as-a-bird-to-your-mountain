@@ -1,88 +1,308 @@
+https://www.ruanyifeng.com/blog/2016/06/dns.html
+
+
+
+DNS 是互联网核心协议之一。不管是上网浏览，还是编程开发，都需要了解一点它的知识。
+
+本文详细介绍DNS的原理，以及如何运用工具软件观察它的运作。我的目标是，读完此文后，你就能完全理解DNS。
+
+![img](https://www.ruanyifeng.com/blogimg/asset/2016/bg2016061513.png)
+
+## 一、DNS 是什么？
+
+DNS （Domain Name System 的缩写）的作用非常简单，就是根据域名查出IP地址。你可以把它想象成一本巨大的电话本。
+
+举例来说，如果你要访问域名`math.stackexchange.com`，首先要通过DNS查出它的IP地址是`151.101.129.69`。
+
+如果你不清楚为什么一定要查出IP地址，才能进行网络通信，建议先阅读我写的[《互联网协议入门》](https://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html)。
+
+## 二、查询过程
+
+虽然只需要返回一个IP地址，但是DNS的查询过程非常复杂，分成多个步骤。
+
+工具软件`dig`可以显示整个查询过程。
+
 > ```bash
-> 什么是 DNS？
-> 域名系统 (DNS) 是 Internet 电话簿。人们通过例如 nytimes.com 或 espn.com 等域名在线访问信息。Web 浏览器通过 Internet 协议 (IP) 地址进行交互。DNS 将域名转换为 IP 地址，以便浏览器能够加载 Internet 资源。
+> $ dig math.stackexchange.com
+> ```
+
+上面的命令会输出六段信息。
+
+![img](https://www.ruanyifeng.com/blogimg/asset/2016/bg2016061501.png)
+
+第一段是查询参数和统计。
+
+![img](https://www.ruanyifeng.com/blogimg/asset/2016/bg2016061502.png)
+
+第二段是查询内容。
+
+![img](https://www.ruanyifeng.com/blogimg/asset/2016/bg2016061503.png)
+
+上面结果表示，查询域名`math.stackexchange.com`的`A`记录，`A`是address的缩写。
+
+第三段是DNS服务器的答复。
+
+![img](https://www.ruanyifeng.com/blogimg/asset/2016/bg2016061504.png)
+
+上面结果显示，`math.stackexchange.com`有四个`A`记录，即四个IP地址。`600`是TTL值（Time to live 的缩写），表示缓存时间，即600秒之内不用重新查询。
+
+第四段显示`stackexchange.com`的NS记录（Name Server的缩写），即哪些服务器负责管理`stackexchange.com`的DNS记录。
+
+![img](https://www.ruanyifeng.com/blogimg/asset/2016/bg2016061505.png)
+
+上面结果显示`stackexchange.com`共有四条NS记录，即四个域名服务器，向其中任一台查询就能知道`math.stackexchange.com`的IP地址是什么。
+
+第五段是上面四个域名服务器的IP地址，这是随着前一段一起返回的。
+
+![img](https://www.ruanyifeng.com/blogimg/asset/2016/bg2016061506.png)
+
+第六段是DNS服务器的一些传输信息。
+
+![img](https://www.ruanyifeng.com/blogimg/asset/2016/bg2016061514.png)
+
+上面结果显示，本机的DNS服务器是`192.168.1.253`，查询端口是53（DNS服务器的默认端口），以及回应长度是305字节。
+
+如果不想看到这么多内容，可以使用`+short`参数。
+
+> ```bash
+> $ dig +short math.stackexchange.com
 > 
-> 连接到 Internet 的每个设备都有一个唯一 IP 地址，其他计算机可使用该 IP 地址查找此设备。DNS 服务器使人们无需存储例如 192.168.1.1（IPv4 中）等 IP 地址或更复杂的较新字母数字 IP 地址，例如 2400:cb00:2048:1::c629:d7a2（IPv6 中）。
+> 151.101.129.69
+> 151.101.65.69
+> 151.101.193.69
+> 151.101.1.69
+> ```
+
+上面命令只返回`math.stackexchange.com`对应的4个IP地址（即`A`记录）。
+
+## 三、DNS服务器
+
+下面我们根据前面这个例子，一步步还原，本机到底怎么得到域名`math.stackexchange.com`的IP地址。
+
+首先，本机一定要知道DNS服务器的IP地址，否则上不了网。通过DNS服务器，才能知道某个域名的IP地址到底是什么。
+
+![img](https://www.ruanyifeng.com/blogimg/asset/2016/bg2016061507.jpg)
+
+DNS服务器的IP地址，有可能是动态的，每次上网时由网关分配，这叫做DHCP机制；也有可能是事先指定的固定地址。Linux系统里面，DNS服务器的IP地址保存在`/etc/resolv.conf`文件。
+
+上例的DNS服务器是`192.168.1.253`，这是一个内网地址。有一些公网的DNS服务器，也可以使用，其中最有名的就是Google的[`8.8.8.8`](https://developers.google.com/speed/public-dns/)和Level 3的[`4.2.2.2`](https://www.tummy.com/articles/famous-dns-server/)。
+
+本机只向自己的DNS服务器查询，`dig`命令有一个`@`参数，显示向其他DNS服务器查询的结果。
+
+> ```bash
+> $ dig @4.2.2.2 math.stackexchange.com
+> ```
+
+上面命令指定向DNS服务器`4.2.2.2`查询。
+
+## 四、域名的层级
+
+DNS服务器怎么会知道每个域名的IP地址呢？答案是分级查询。
+
+请仔细看前面的例子，每个域名的尾部都多了一个点。
+
+![img](https://www.ruanyifeng.com/blogimg/asset/2016/bg2016061503.png)
+
+比如，域名`math.stackexchange.com`显示为`math.stackexchange.com.`。这不是疏忽，而是所有域名的尾部，实际上都有一个根域名。
+
+举例来说，`www.example.com`真正的域名是`www.example.com.root`，简写为`www.example.com.`。因为，根域名`.root`对于所有域名都是一样的，所以平时是省略的。
+
+根域名的下一级，叫做"顶级域名"（top-level domain，缩写为TLD），比如`.com`、`.net`；再下一级叫做"次级域名"（second-level domain，缩写为SLD），比如`www.example.com`里面的`.example`，这一级域名是用户可以注册的；再下一级是主机名（host），比如`www.example.com`里面的`www`，又称为"三级域名"，这是用户在自己的域里面为服务器分配的名称，是用户可以任意分配的。
+
+总结一下，域名的层级结构如下。
+
+> ```bash
+> 主机名.次级域名.顶级域名.根域名
 > 
-> DNS
-> DNS 如何工作？
-> DNS 解析过程涉及将主机名（例如 www.example.com）转换为计算机友好的 IP 地址（例如 192.168.1.1）。Internet 上的每个设备都被分配了一个 IP 地址，必须有该地址才能找到相应的 Internet 设备 - 就像使用街道地址来查找特定住所一样。当用户想要加载网页时，用户在 Web 浏览器中键入的内容（example.com）与查找 example.com 网页所需的机器友好地址之间必须进行转换。
+> # 即
 > 
-> 为理解 DNS 解析过程，务必了解 DNS 查询必须经过的不同硬件组件。对于 Web 浏览器，DNS 查找在“幕后”进行，除了初始请求外，不需要从用户的计算机进行任何交互。
+> host.sld.tld.root
+> ```
+
+## 五、根域名服务器
+
+DNS服务器根据域名的层级，进行分级查询。
+
+需要明确的是，每一级域名都有自己的NS记录，NS记录指向该级域名的域名服务器。这些服务器知道下一级域名的各种记录。
+
+所谓"分级查询"，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，过程大致如下。
+
+> 1. 从"根域名服务器"查到"顶级域名服务器"的NS记录和A记录（IP地址）
+> 2. 从"顶级域名服务器"查到"次级域名服务器"的NS记录和A记录（IP地址）
+> 3. 从"次级域名服务器"查出"主机名"的IP地址
+
+仔细看上面的过程，你可能发现了，没有提到DNS服务器怎么知道"根域名服务器"的IP地址。回答是"根域名服务器"的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器里面。
+
+下面是内置的根域名服务器IP地址的一个[例子](http://www.cyberciti.biz/faq/unix-linux-update-root-hints-data-file/)。
+
+![img](https://www.ruanyifeng.com/blogimg/asset/2016/bg2016061508.png)
+
+上面列表中，列出了根域名（`.root`）的三条NS记录`A.ROOT-SERVERS.NET`、`B.ROOT-SERVERS.NET`和`C.ROOT-SERVERS.NET`，以及它们的IP地址（即`A`记录）`198.41.0.4`、`192.228.79.201`、`192.33.4.12`。
+
+另外，可以看到所有记录的TTL值是3600000秒，相当于1000小时。也就是说，每1000小时才查询一次根域名服务器的列表。
+
+目前，世界上一共有十三组根域名服务器，从`A.ROOT-SERVERS.NET`一直到`M.ROOT-SERVERS.NET`。
+
+## 六、分级查询的实例
+
+`dig`命令的`+trace`参数可以显示DNS的整个分级查询过程。
+
+> ```bash
+> $ dig +trace math.stackexchange.com
+> ```
+
+上面命令的第一段列出根域名`.`的所有NS记录，即所有根域名服务器。
+
+![img](https://www.ruanyifeng.com/blogimg/asset/2016/bg2016061509.png)
+
+根据内置的根域名服务器IP地址，DNS服务器向所有这些IP地址发出查询请求，询问`math.stackexchange.com`的顶级域名服务器`com.`的NS记录。最先回复的根域名服务器将被缓存，以后只向这台服务器发请求。
+
+接着是第二段。
+
+![img](https://www.ruanyifeng.com/blogimg/asset/2016/bg2016061510.png)
+
+上面结果显示`.com`域名的13条NS记录，同时返回的还有每一条记录对应的IP地址。
+
+然后，DNS服务器向这些顶级域名服务器发出查询请求，询问`math.stackexchange.com`的次级域名`stackexchange.com`的NS记录。
+
+![img](https://www.ruanyifeng.com/blogimg/asset/2016/bg2016061511.png)
+
+上面结果显示`stackexchange.com`有四条NS记录，同时返回的还有每一条NS记录对应的IP地址。
+
+然后，DNS服务器向上面这四台NS服务器查询`math.stackexchange.com`的主机名。
+
+![img](https://www.ruanyifeng.com/blogimg/asset/2016/bg2016061512.png)
+
+上面结果显示，`math.stackexchange.com`有4条`A`记录，即这四个IP地址都可以访问到网站。并且还显示，最先返回结果的NS服务器是`ns-463.awsdns-57.com`，IP地址为`205.251.193.207`。
+
+## 七、NS 记录的查询
+
+`dig`命令可以单独查看每一级域名的NS记录。
+
+> ```bash
+> $ dig ns com
+> $ dig ns stackexchange.com
+> ```
+
+`+short`参数可以显示简化的结果。
+
+> ```bash
+> $ dig +short ns com
+> $ dig +short ns stackexchange.com
+> ```
+
+## 八、DNS的记录类型
+
+域名与IP之间的对应关系，称为"记录"（record）。根据使用场景，"记录"可以分成不同的类型（type），前面已经看到了有`A`记录和`NS`记录。
+
+常见的DNS记录类型如下。
+
+> （1） `A`：地址记录（Address），返回域名指向的IP地址。
+>
+> （2） `NS`：域名服务器记录（Name Server），返回保存下一级域名信息的服务器地址。该记录只能设置为域名，不能设置为IP地址。
+>
+> （3）`MX`：邮件记录（Mail eXchange），返回接收电子邮件的服务器地址。
+>
+> （4）`CNAME`：规范名称记录（Canonical Name），返回另一个域名，即当前查询的域名是另一个域名的跳转，详见下文。
+>
+> （5）`PTR`：逆向查询记录（Pointer Record），只用于从IP地址查询域名，详见下文。
+
+一般来说，为了服务的安全可靠，至少应该有两条`NS`记录，而`A`记录和`MX`记录也可以有多条，这样就提供了服务的冗余性，防止出现单点失败。
+
+`CNAME`记录主要用于域名的内部跳转，为服务器配置提供灵活性，用户感知不到。举例来说，`facebook.github.io`这个域名就是一个`CNAME`记录。
+
+> ```bash
+> $ dig facebook.github.io
 > 
-> 加载网页涉及 4 个 DNS 服务器：
-> DNS 解析器 - 该解析器可被视为被要求去图书馆的某个地方查找特定图书的图书馆员。DNS 解析器是一种服务器，旨在通过 Web 浏览器等应用程序接收客户端计算机的查询。然后，解析器一般负责发出其他请求，以便满足客户端的 DNS 查询。
-> 根域名服务器 - 根域名服务器是将人类可读的主机名转换（解析）为 IP 地址的第一步。可将其视为指向不同书架的图书馆中的索引 - 一般其作为对其他更具体位置的引用。
-> TLD 域名服务器 - 顶级域服务器（TLD）可被视为图书馆中的特定书架。此域名服务器是搜索特定 IP 地址的下一步，其托管主机名的最后一部分（在 example.com 中，TLD 服务器为 “com”）。
-> 权威性域名服务器 - 可将这个最终域名服务器视为书架上的字典，其中特定名称可被转换成其定义。权威性域名服务器是域名服务器查询中的最后一站。如果权威性域名服务器能够访问请求的记录，则其会将已请求主机名的 IP 地址返回到发出初始请求的 DNS 解析器（图书管理员）。
-> 权威性 DNS 服务器与递归 DNS 解析器之间的区别是什么？
-> 这两个概念都是指 DNS 基础设施不可或缺的服务器（服务器组），但各自担当不同的角色，并且位于 DNS 查询管道内的不同位置。考虑二者差异的一种方式是，递归解析器位于 DNS 查询的开头，而权威性域名服务器位于末尾。
+> ...
 > 
-> 递归 DNS 解析器
-> 递归解析器是一种计算机，其响应来自客户端的递归请求并花时间追踪 DNS 记录。为执行此操作，其发出一系列请求，直至到达用于所请求的记录的权威性 DNS 域名服务器为止（或者超时，或者如果未找到记录，则返回错误）。幸运的是，递归 DNS 解析器并不总是需要发出多个请求才能追踪响应客户端所需的记录；缓存是一种数据持久性过程，可通过在 DNS 查找中更早地服务于所请求的资源记录来为所需的请求提供捷径。
+> ;; ANSWER SECTION:
+> facebook.github.io. 3370    IN  CNAME   github.map.fastly.net.
+> github.map.fastly.net.  600 IN  A   103.245.222.133
+> ```
+
+上面结果显示，`facebook.github.io`的CNAME记录指向`github.map.fastly.net`。也就是说，用户查询`facebook.github.io`的时候，实际上返回的是`github.map.fastly.net`的IP地址。这样的好处是，变更服务器IP地址的时候，只要修改`github.map.fastly.net`这个域名就可以了，用户的`facebook.github.io`域名不用修改。
+
+由于`CNAME`记录就是一个替换，所以域名一旦设置`CNAME`记录以后，就不能再设置其他记录了（比如`A`记录和`MX`记录），这是为了防止产生冲突。举例来说，`foo.com`指向`bar.com`，而两个域名各有自己的`MX`记录，如果两者不一致，就会产生问题。由于顶级域名通常要设置`MX`记录，所以一般不允许用户对顶级域名设置`CNAME`记录。
+
+`PTR`记录用于从IP地址反查域名。`dig`命令的`-x`参数用于查询`PTR`记录。
+
+> ```bash
+> $ dig -x 192.30.252.153
 > 
-> DNS 的工作原理 - DNS 查询的 10 个步骤
-> 权威性 DNS 服务器
-> 简言之，权威性 DNS 服务器是实际持有并负责 DNS 资源记录的服务器。这是位于 DNS 查找链底部的服务器，其将使用所查询的资源记录进行响应，从而最终允许发出请求的 Web 浏览器达到访问网站或其他 Web 资源所需的 IP 地址。权威性域名服务器从自身数据满足查询需求，无需查询其他来源，因为这是某些 DNS 记录的最终真实来源。
+> ...
 > 
-> DNS 查询图
-> 值得一提的是，在查询对象为子域（例如 foo.example.com 或 blog.cloudflare.com）的情况下，将向权威性域名服务器之后的序列添加一个附加域名服务器，其负责存储该子域的 CNAME 记录。
+> ;; ANSWER SECTION:
+> 153.252.30.192.in-addr.arpa. 3600 IN    PTR pages.github.com.
+> ```
+
+上面结果显示，`192.30.252.153`这台服务器的域名是`pages.github.com`。
+
+逆向查询的一个应用，是可以防止垃圾邮件，即验证发送邮件的IP地址，是否真的有它所声称的域名。
+
+`dig`命令可以查看指定的记录类型。
+
+> ```bash
+> $ dig a github.com
+> $ dig ns github.com
+> $ dig mx github.com
+> ```
+
+## 九、其他DNS工具
+
+除了`dig`，还有一些其他小工具也可以使用。
+
+**（1）host 命令**
+
+`host`命令可以看作`dig`命令的简化版本，返回当前请求域名的各种记录。
+
+> ```bash
+> $ host github.com
 > 
-> DNS 查询图
-> 许多 DNS 服务与 Cloudflare 提供的服务之间存在一个关键区别。Google DNS、OpenDNS 等不同 DNS 递归解析器以及 Comcast 等提供商均保持 DNS 递归解析器的数据中心安装。这些解析器可实现通过 DNS 优化式计算机系统的优化群集快速轻松地进行查询，但它们与 Cloudflare 托管的域名服务器截然不同。
+> github.com has address 192.30.252.121
+> github.com mail is handled by 5 ALT2.ASPMX.L.GOOGLE.COM.
+> github.com mail is handled by 10 ALT4.ASPMX.L.GOOGLE.COM.
+> github.com mail is handled by 10 ALT3.ASPMX.L.GOOGLE.COM.
+> github.com mail is handled by 5 ALT1.ASPMX.L.GOOGLE.COM.
+> github.com mail is handled by 1 ASPMX.L.GOOGLE.COM.
 > 
-> Cloudflare 维护 Internet 功能不可或缺的基础设施级域名服务器。一个主要示例是 Cloudflare 部分负责托管的 f-根服务器网络。F 根是每天负责数十亿个 Internet 请求的根级 DNS 域名服务器基础设施组件之一。我们的 Anycast 网络在处理大量 DNS 流量方面发挥着不可替代的作用，也不会出现服务中断。
+> $ host facebook.github.com
 > 
-> DNS 查找有哪些步骤？
-> 大多数情况下，DNS 与正被转换为相应 IP 地址的域名有关。要了解此过程的工作方式，在 DNS 查找从 Web 浏览器经过 DNS 查找过程然后再返回时，跟踪 DNS 查找的路径会有所帮助。我们来看一下这些步骤。
+> facebook.github.com is an alias for github.map.fastly.net.
+> github.map.fastly.net has address 103.245.222.133
+> ```
+
+`host`命令也可以用于逆向查询，即从IP地址查询域名，等同于`dig -x <ip>`。
+
+> ```bash
+> $ host 192.30.252.153
 > 
-> 注意：通常，DNS 查找信息将本地缓存在查询计算机内，或者远程缓存在 DNS 基础设施内。DNS 查找通常有 8 个步骤。缓存 DNS 信息时，将从 DNS 查找过程中跳过一些步骤，从而使该过程更快。以下示例概述了不缓存任何内容时的所有 8 个步骤。
+> 153.252.30.192.in-addr.arpa domain name pointer pages.github.com.
+> ```
+
+**（2）nslookup 命令**
+
+`nslookup`命令用于互动式地查询域名记录。
+
+> ```bash
+> $ nslookup
 > 
-> DNS 查找的 8 个步骤：
-> 用户在 Web 浏览器中键入 “example.com”，查询传输到 Internet 中，并被 DNS 递归解析器接收。
-> 接着，解析器查询 DNS 根域名服务器（.）。
-> 然后，根服务器使用存储其域信息的顶级域（TLD）DNS 服务器（例如 .com 或 .net）的地址响应该解析器。在搜索 example.com 时，我们的请求指向 .com TLD。
-> 然后，解析器向 .com TLD 发出请求。
-> TLD 服务器随后使用该域的域名服务器 example.com 的 IP 地址进行响应。
-> 最后，递归解析器将查询发送到域的域名服务器。
-> example.com 的 IP 地址而后从域名服务器返回解析器。
-> 然后 DNS 解析器使用最初请求的域的 IP 地址响应 Web 浏览器。
-> DNS 查找的这 8 个步骤返回 example.com 的 IP 地址后，浏览器便能发出对该网页的请求：
+> > facebook.github.io
+> Server:     192.168.1.253
+> Address:    192.168.1.253#53
 > 
-> 浏览器向该 IP 地址发出 HTTP 请求。
-> 位于该 IP 的服务器返回将在浏览器中呈现的网页（第 10 步）。
-> DNS 查询图
-> 什么是 DNS 解析器？
-> DNS 解析器是 DNS 查找的第一站，其负责与发出初始请求的客户端打交道。解析器启动查询序列，最终使 URL 转换为必要的 IP 地址。
+> Non-authoritative answer:
+> facebook.github.io  canonical name = github.map.fastly.net.
+> Name:   github.map.fastly.net
+> Address: 103.245.222.133
 > 
-> 注意：典型的未缓存 DNS 查找将涉及递归查询和迭代查询。
-> 
-> 务必区分递归 DNS 查询和递归 DNS 解析器。该查询是指向需要解析该查询的 DNS 解析器发出的请求。DNS 递归解析器是一种计算机，其接受递归查询并通过发出必要的请求来处理响应。
-> 
-> DNS 查询图
-> DNS 查询有哪些类型？
-> 典型 DNS 查找中会出现三种类型的查询。通过组合使用这些查询，优化的 DNS 解析过程可缩短传输距离。在理想情况下，可以使用缓存的记录数据，从而使 DNS 域名服务器能够返回非递归查询。
-> 
-> 3 种 DNS 查询类型：
-> 递归查询 - 在递归查询中，DNS 客户端要求 DNS 服务器（一般为 DNS 递归解析器）将使用所请求的资源记录响应客户端，或者如果解析器无法找到该记录，则返回错误消息。
-> 迭代查询 - 在这种情况下，DNS 客户端将允许 DNS 服务器返回其能够给出的最佳应答。如果所查询的 DNS 服务器与查询名称不匹配，则其将返回对较低级别域名空间具有权威性的 DNS 服务器的引用。然后，DNS 客户端将对引用地址进行查询。此过程继续使用查询链中的其他 DNS 服务器，直至发生错误或超时为止。
-> 非递归查询 - 当 DNS 解析器客户端查询 DNS 服务器以获取其有权访问的记录时通常会进行此查询，因为其对该记录具有权威性，或者该记录存在于其缓存内。DNS 服务器通常会缓存 DNS 记录，以防止更多带宽消耗和上游服务器上的负载。
-> 什么是 DNS 高速缓存？DNS 高速缓存发生在哪里？
-> 缓存的目的是将数据临时存储在某个位置，从而提高数据请求的性能和可靠性。DNS 高速缓存涉及将数据存储在更靠近请求客户端的位置，以便能够更早地解析 DNS 查询，并且能够避免在 DNS 查找链中进一步向下的额外查询，从而缩短加载时间并减少带宽/CPU 消耗。DNS 数据可缓存到各种不同的位置上，每个位置均将存储 DNS 记录并保存由生存时间（TTL）决定的一段时间。
-> 
-> 浏览器 DNS 缓存
-> 现代 Web 浏览器设计为默认将 DNS 记录缓存一段时间。目的很明显；越靠近 Web 浏览器进行 DNS 缓存，为检查缓存并向 IP 地址发出正确请求而必须采取的处理步骤就越少。发出对 DNS 记录的请求时，浏览器缓存是针对所请求的记录而检查的第一个位置。
-> 
-> 在 Chrome 浏览器中，您可以转到 chrome://net-internals/#dns 查看 DNS 缓存的状态。
-> 
-> 操作系统（OS）级 DNS 缓存
-> 操作系统级 DNS 解析器是 DNS 查询离开您计算机前的第二站，也是本地最后一站。操作系统内旨在处理此查询的过程通常称为“存根解析器”或 DNS 客户端。当存根解析器获取来自某个应用程序的请求时，其首先检查自己的缓存，以便查看是否有此记录。如果没有，则将本地网络外部的 DNS 查询（设置了递归标记）发送到 Internet 服务提供商（ISP）内部的 DNS 递归解析器。
-> 
-> 与先前所有步骤一样，当 ISP 内的递归解析器收到 DNS 查询时，其还将查看所请求的主机到 IP 地址转换是否已经存储在其本地持久性层中。
-> 
-> 根据其缓存中具有的记录类型，递归解析器还具有其他功能：
-> 
-> 如果解析器没有 A 记录，但确实有针对权威性域名服务器的 NS 记录，则其将直接查询这些域名服务器，从而绕过 DNS 查询中的几个步骤。此快捷方式可防止从根和 .com 域名服务器（在我们对 example.com 的搜索中）进行查找，并且有助于更快地解析 DNS 查询。
-> 如果解析器没有 NS 记录，它会向 TLD 服务器（本例中为 .com）发送查询，从而跳过根服务器。
-> 万一解析器没有指向 TLD 服务器的记录，其将查询根服务器。这种情况通常在清除了 DNS 高速缓存后发生。xxxxxxxxxx $ dig a github.com$ dig ns github.com$ dig mx github.combash
+> > 
+> ```
+
+**（3）whois 命令**
+
+`whois`命令用来查看域名的注册情况。
+
+> ```bash
+> $ whois github.com
 > ```
