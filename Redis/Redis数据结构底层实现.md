@@ -408,6 +408,7 @@ redis中并没有直接使用以上所说的各种数据结构来实现键值数
 
 ![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/2/16ec24738078de0e~tplv-t2oaga2asx-watermark.awebp)
 
-> 
 > https://juejin.cn/post/6844904008591605767
+>
+> https://i6448038.github.io/2019/12/01/redis-data-struct/
 
