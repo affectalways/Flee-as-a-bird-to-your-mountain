@@ -2,15 +2,15 @@
 
 哈，好久没更新文章了，今天来说说关于mySQL那些年的小事。说到mySQL啊，用了挺久的了，但是有个问题一直在困扰着我，就是left join、join、right join和inner join等等各种join的区别。网上搜，最常见的就是一张图解图，如下：
 
-![](F:\Flee-as-a-bird-to-your-mountain\MySQL\pictures\join1.png)
+![](https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/MySQL/pictures/join1.png?raw=true)
 
 真的是一张图道清所有join的区别啊，可惜我还是看不懂，可能人比较懒，然后基本一个left join给我就是够用的了，所以就没怎么去仔细研究了，但是现实还是逼我去搞清楚，索性自己动手，总算理解图中的含义了，下面就听我一一道来。
 
 首先，我们先来建两张表，第一张表命名为kemu，第二张表命名为score：
 
-![](F:\Flee-as-a-bird-to-your-mountain\MySQL\pictures\join2.png)
+![](https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/MySQL/pictures/join2.png?raw=true)
 
-![](F:\Flee-as-a-bird-to-your-mountain\MySQL\pictures\join3.png)
+![](https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/MySQL/pictures/join3.png?raw=true)
 
 **一、left join**
 顾名思义，就是“左连接”，表1左连接表2，以左为主，表示以表1为主，关联上表2的数据，查出来的结果显示左边的所有数据，然后右边显示的是和左边有交集部分的数据。如下：
