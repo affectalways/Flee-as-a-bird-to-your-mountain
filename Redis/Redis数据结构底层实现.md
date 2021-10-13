@@ -1,5 +1,67 @@
 redis有五种基本数据结构：字符串、hash、set、zset、list。但是你知道构成这五种结构的底层数据结构是怎样的吗？ 今天我们来花费五分钟的时间了解一下。 (目前redis版本为3.0.6)
 
+# redis五种数据结构的实现
+
+### redis对象
+
+redis中并没有直接使用以上所说的各种数据结构来实现键值数据库，而是基于一种对象，对象底层再间接的引用上文所说的具体的数据结构。
+
+结构如下图：
+
+
+
+![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/2/16ec2452eb34831c~tplv-t2oaga2asx-watermark.awebp)
+
+
+
+### 字符串
+
+
+
+![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/2/16ec2452eb270d5b~tplv-t2oaga2asx-watermark.awebp)
+
+
+
+其中：embstr和raw都是由SDS动态字符串构成的。唯一区别是：raw是分配内存的时候，redisobject和 sds 各分配一块内存，而embstr是redisobject和在一块儿内存中。
+
+### 列表
+
+
+
+![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/2/16ec2452eb5fe428~tplv-t2oaga2asx-watermark.awebp)
+
+
+
+### hash
+
+
+
+![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/2/16ec2456cccd3e53~tplv-t2oaga2asx-watermark.awebp)
+
+
+
+### set
+
+
+
+![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/2/16ec2472de84bee9~tplv-t2oaga2asx-watermark.awebp)
+
+
+
+### zset
+
+
+
+![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/2/16ec24738078de0e~tplv-t2oaga2asx-watermark.awebp)
+
+> https://juejin.cn/post/6844904008591605767
+>
+> https://i6448038.github.io/2019/12/01/redis-data-struct/
+
+
+
+
+
 # 动态字符串SDS
 
 SDS是"simple dynamic string"的缩写。 redis中所有场景中出现的字符串，基本都是由SDS来实现的
@@ -75,7 +137,7 @@ free:还剩多少空间 len:字符串长度 buf:存放的字符数组
 
 # ziplist
 
-压缩列表。 redis的列表键和哈希键的底层实现之一。此数据结构是为了节约内存而开发的。和各种语言的数组类似，它是由连续的内存块组成的，这样一来，由于内存是连续的，就减少了很多内存碎片和指针的内存占用，进而节约了内存。
+压缩列表。此数据结构是为了节约内存而开发的。和各种语言的数组类似，它是由连续的内存块组成的，这样一来，由于内存是连续的，就减少了很多内存碎片和指针的内存占用，进而节约了内存。
 
 
 
@@ -353,62 +415,4 @@ redis中把跳表抽象成如下所示：
 - 分值是有顺序的
 - o1、o2、o3是节点所保存的成员，是一个指针，可以指向一个SDS值。
 - 层级高度最高是32。没每次创建一个新的节点的时候，程序都会随机生成一个介于1和32之间的值作为level数组的大小，这个大小就是“高度”
-
-# redis五种数据结构的实现
-
-### redis对象
-
-redis中并没有直接使用以上所说的各种数据结构来实现键值数据库，而是基于一种对象，对象底层再间接的引用上文所说的具体的数据结构。
-
-结构如下图：
-
-
-
-![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/2/16ec2452eb34831c~tplv-t2oaga2asx-watermark.awebp)
-
-
-
-### 字符串
-
-
-
-![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/2/16ec2452eb270d5b~tplv-t2oaga2asx-watermark.awebp)
-
-
-
-其中：embstr和raw都是由SDS动态字符串构成的。唯一区别是：raw是分配内存的时候，redisobject和 sds 各分配一块内存，而embstr是redisobject和在一块儿内存中。
-
-### 列表
-
-
-
-![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/2/16ec2452eb5fe428~tplv-t2oaga2asx-watermark.awebp)
-
-
-
-### hash
-
-
-
-![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/2/16ec2456cccd3e53~tplv-t2oaga2asx-watermark.awebp)
-
-
-
-### set
-
-
-
-![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/2/16ec2472de84bee9~tplv-t2oaga2asx-watermark.awebp)
-
-
-
-### zset
-
-
-
-![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/2/16ec24738078de0e~tplv-t2oaga2asx-watermark.awebp)
-
-> https://juejin.cn/post/6844904008591605767
->
-> https://i6448038.github.io/2019/12/01/redis-data-struct/
 
