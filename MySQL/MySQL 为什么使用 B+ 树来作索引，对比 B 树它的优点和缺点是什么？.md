@@ -1,9 +1,5 @@
 ### MySQL 为什么使用 B+ 树来作索引，对比 B 树它的优点和缺点是什么？
 
-
-
-### 为什么使用B+Tree
-
 首先需要澄清的一点是，MySQL跟B+树没有直接的关系，真正与B+树有关系的是MySQL的默认存储引擎`InnoDB`，MySQL中存储引擎的主要作用是`负责数据的存储和提取`，除了`InnoDB`之外，MySQL中也支持比如`MyISAM`等其他存储引擎(详情见`https://dev.mysql.com/doc/refman/5.7/en/storage-engine-setting.html`)作为表的底层存储引擎。
 
 ```
