@@ -37,7 +37,7 @@ GitHub 不支持目录这一语法，如果你的 ReadMe 太长，可以用如�
 
 效果如下：
 
-![image-20211014230643560](F:\Flee-as-a-bird-to-your-mountain\github\pictures\效果图.png)
+![image-20211014230643560](https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/github/pictures/%E6%95%88%E6%9E%9C%E5%9B%BE.png?raw=true)
 
 可以使用语法`[](#)`链接某个标题，比如：
 
@@ -51,7 +51,7 @@ GitHub 不支持目录这一语法，如果你的 ReadMe 太长，可以用如�
 
 就可以得到下面的目录效果：
 
-![](F:\Flee-as-a-bird-to-your-mountain\github\pictures\效果图2.png)
+![](https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/github/pictures/%E6%95%88%E6%9E%9C%E5%9B%BE2.png?raw=true)
 
 但是有几个注意事项：
 
