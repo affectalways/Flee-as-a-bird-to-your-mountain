@@ -1,19 +1,5 @@
----
-title: "Offer24 反转链表"
-date: 2020-07-16T22:24:25+08:00
-tags: ["leetcode"]
-keywords: 
-- leetcode
-- blog
-- 博客
-- 领扣
-- Offer24 反转链表
-- 算法
-- 链表
-description: "leetcode，Offer24 反转链表"
-categories: ["leetcode","链表"]
-draft: false
----
+# Offer24 反转链表
+
 
 #### [剑指 Offer 24. 反转链表](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/) 
 
@@ -90,4 +76,5 @@ if __name__ == '__main__':
     cur = solution.reverseList(head)
     traversal_link(cur)
 ```
+
 
