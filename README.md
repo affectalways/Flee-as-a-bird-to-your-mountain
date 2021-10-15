@@ -2,7 +2,7 @@
 
 |            算法            |       数据库       |             操作系统             |        网络协议        |                leetcode                |                     开发语言                      |
 | :------------------------: | :----------------: | :------------------------------: | :--------------------: | :------------------------------------: | :-----------------------------------------------: |
-| [:pencil2:](#pencil2-算法) | [:cd:](#cd-数据库) | [:computer:](#computer-操作系统) | [:zap:](#zap-网络协议) | [:smiling_imp:](#smiling_imp-leetcode) | [:hammer_and_wrench:](#hammer_and_wrench开发语言) |
+| [:pencil2:](#pencil2-算法) | [:cd:](#cd-数据库) | [:computer:](#computer-操作系统) | [:zap:](#zap-网络协议) | [:smiling_imp:](#smiling_imp-leetcode) | [:hammer_and_wrench:](#hammer_and_wrench-开发语言) |
 
 
 
@@ -17,14 +17,14 @@
 
 ## :cd: 数据库
 
-- [MySQL]()
-- [Redis](https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/Redis/%E7%9B%AE%E5%BD%95.md)
+- [MySQL](https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/MySQL/0.%E7%9B%AE%E5%BD%95.md)
+- [Redis](https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/Redis/0.%E7%9B%AE%E5%BD%95.md)
 
-## :computer:操作系统
+## :computer: 操作系统
 
-## :zap:网络协议
+## :zap: 网络协议
 
-## :smiling_imp:leetcode
+## :smiling_imp: leetcode
 
 - [数组]()
 - [链表]()
@@ -32,7 +32,7 @@
 - [回溯]()
 - [动态规划]()
 
-## :hammer_and_wrench:开发语言
+## :hammer_and_wrench: 开发语言
 
 - [Python]()
 - [Java]()
