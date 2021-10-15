@@ -1,10 +1,12 @@
 # Flee-as-a-bird-to-your-mountain
 
-|            算法            |        数据库        |             操作系统             |        网络协议        |                 leetcode                 |                      开发语言                       |
-| :------------------------: | :------------------: | :------------------------------: | :--------------------: | :--------------------------------------: | :-------------------------------------------------: |
-| [:pencil2:](#pencil2-算法) | [:cd:](#:cd:-数据库) | [:computer:](#computer-操作系统) | [:zap:](#zap-网络协议) | [:smiling_imp:](#:smiling_imp:-leetcode) | [:hammer_and_wrench:](#:hammer_and_wrench:开发语言) |
+|            算法            |       数据库       |             操作系统             |        网络协议        |                leetcode                |                     开发语言                      |
+| :------------------------: | :----------------: | :------------------------------: | :--------------------: | :------------------------------------: | :-----------------------------------------------: |
+| [:pencil2:](#pencil2-算法) | [:cd:](#cd-数据库) | [:computer:](#computer-操作系统) | [:zap:](#zap-网络协议) | [:smiling_imp:](#smiling_imp-leetcode) | [:hammer_and_wrench:](#hammer_and_wrench开发语言) |
 
 
+
+# 目录
 
 ## :pencil2:算法
 
@@ -16,7 +18,7 @@
 ## :cd: 数据库
 
 - [MySQL]()
-- [Redis]()
+- [Redis](https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/Redis/%E7%9B%AE%E5%BD%95.md)
 
 ## :computer:操作系统
 
@@ -34,6 +36,7 @@
 
 - [Python]()
 - [Java]()
+- [Go]()
 
 
 
