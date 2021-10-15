@@ -18,7 +18,7 @@
 ## :cd: 数据库
 
 - [MySQL](https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/MySQL/0.%E7%9B%AE%E5%BD%95.md)
-- [Redis](https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/Redis/0.%E7%9B%AE%E5%BD%95.md)
+- [Redis](Redis/0.目录.md)
 
 ## :computer: 操作系统
 
