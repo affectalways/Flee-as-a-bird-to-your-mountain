@@ -26,11 +26,11 @@
 
 ## :smiling_imp: leetcode
 
-- [数组]()
-- [链表]()
-- [树]()
-- [回溯]()
-- [动态规划]()
+- [数组](leetcode/数组/目录.md)
+- [链表](leetcode/链表/目录.md)
+- [树](leetcode/树/目录.md)
+- [回溯](leetcode/回溯/目录.md)
+- [动态规划](leetcode/动态规划/目录.md)
 
 ## :hammer_and_wrench: 开发语言
 
