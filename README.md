@@ -34,9 +34,9 @@
 
 ## :hammer_and_wrench: 开发语言
 
-- [Python]()
+- [Python](./python/0.目录.md)
 - [Java]()
-- [Go]()
+- [Go](./golang/0.目录.md)
 
 
 
