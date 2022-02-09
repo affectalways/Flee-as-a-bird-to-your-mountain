@@ -2,56 +2,7 @@
 
 > https://www.cnblogs.com/bytesfly/p/mysql-transaction-innodb-mvcc.html
 
-(同时再次强调，这几篇关于MySQL的探究都是基于`5.7`版本，相关总结与结论`不一定适用`于其他版本)
 
-就软件开发而言，既要保证数据读写的`效率`，还要保证`并发读写`数据的`可靠性`、`正确性`。因此，除了要对MySQL的索引结构及查询优化有所了解外，还需要对MySQL的事务隔离级别及MVCC机制有所认知。
-
-MySQL官方文档中的词汇表(`https://dev.mysql.com/doc/refman/5.7/en/glossary.html`)有助于我们对相关概念、理论的理解。下文中我会从概念表中摘录部分原文描述，以加深对原理机制的理解。
-
-## 事务隔离级别[#](https://www.cnblogs.com/bytesfly/p/mysql-transaction-innodb-mvcc.html#事务隔离级别)
-
-### 事务是什么[#](https://www.cnblogs.com/bytesfly/p/mysql-transaction-innodb-mvcc.html#事务是什么)
-
-> Transactions are atomic units of work that can be committed or rolled back. When a transaction makes multiple changes to the database, either all the changes succeed when the transaction is committed, or all the changes are undone when the transaction is rolled back.
-
-事务是由一组SQL语句组成的原子操作单元，其对数据的变更，要么全都执行成功(`Committed`)，要么全都不执行(`Rollback`)。
-
-[![事务的示意图](https://img2020.cnblogs.com/blog/1546632/202010/1546632-20201003090232837-258120887.png)](https://img2020.cnblogs.com/blog/1546632/202010/1546632-20201003090232837-258120887.png)
-
-> Database transactions, as implemented by InnoDB, have properties that are collectively known by the acronym ACID, for atomicity, consistency, isolation, and durability.
-
-`InnoDB`实现的数据库事务具有常说的`ACID`属性，即原子性(`atomicity`)，一致性(`consistency`)、隔离性(`isolation`)和持久性(`durability`)。
-
-- `原子性`：事务被视为不可分割的最小单元，所有操作要么全部执行成功，要么失败回滚(即还原到事务开始前的状态，就像这个事务从来没有执行过一样)
-- `一致性`：在成功提交或失败回滚之后以及正在进行的事务期间，数据库始终保持一致的状态。如果正在多个表之间更新相关数据，那么查询将看到所有旧值或所有新值，而不会一部分是新值，一部分是旧值
-- `隔离性`：事务处理过程中的中间状态应该对外部不可见，换句话说，事务在进行过程中是隔离的，事务之间不能互相干扰，不能访问到彼此未提交的数据。这种隔离可通过锁机制实现。有经验的用户可以根据实际的业务场景，通过调整事务隔离级别，以提高并发能力
-- `持久性`：一旦事务提交，其所做的修改将会永远保存到数据库中。即使系统发生故障，事务执行的结果也不能丢失
-
-> In InnoDB, all user activity occurs inside a transaction. If autocommit mode is enabled, each SQL statement forms a single transaction on its own. By default, MySQL starts the session for each new connection with autocommit enabled, so MySQL does a commit after each SQL statement if that statement did not return an error. If a statement returns an error, the commit or rollback behavior depends on the error
-
-MySQL默认采用自动提交(`autocommit`)模式。也就是说，如果不显式使用`START TRANSACTION`或`BEGIN`语句来开启一个事务，那么每个SQL语句都会被当做一个事务自动提交。
-
-> A session that has autocommit enabled can perform a multiple-statement transaction by starting it with an explicit START TRANSACTION or BEGIN statement and ending it with a COMMIT or ROLLBACK statement.
-
-多个SQL语句开启一个事务也很简单，以`START TRANSACTION`或者`BEGIN`语句开头，以`COMMIT`或`ROLLBACK`语句结尾。
-
-> If autocommit mode is disabled within a session with SET autocommit = 0, the session always has a transaction open. A COMMIT or ROLLBACK statement ends the current transaction and a new one starts.
-
-使用`SET autocommit = 0`可手动关闭当前`session`自动提交模式。
-
-### 并发事务的问题[#](https://www.cnblogs.com/bytesfly/p/mysql-transaction-innodb-mvcc.html#并发事务的问题)
-
-#### 引出事务隔离级别[#](https://www.cnblogs.com/bytesfly/p/mysql-transaction-innodb-mvcc.html#引出事务隔离级别)
-
-相关文档：`https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html`
-
-> Isolation is the I in the acronym ACID; the isolation level is the setting that fine-tunes the balance between performance and reliability, consistency, and reproducibility of results when multiple transactions are making changes and performing queries at the same time.
-
-也就是说当多个并发请求访问MySQL，其中有对数据的增删改请求时，考虑到并发性，又为了避免`脏读`、`不可重复读`、`幻读`等问题，就需要对事务之间的读写进行隔离，至于隔离到啥程度需要看具体的业务场景，这时就要引出事务的隔离级别了。
-
-> InnoDB offers all four transaction isolation levels described by the SQL:1992 standard: READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, and SERIALIZABLE. The default isolation level for InnoDB is REPEATABLE READ.
-
-`InnoDB`存储引擎实现了SQL标准中描述的4个事务隔离级别：读未提交(`READ UNCOMMITTED`)、读已提交(`READ COMMITTED`)、可重复读(`REPEATABLE READ`)、可串行化(`SERIALIZABLE`)。`InnoDB`默认隔离级别是可重复读(`REPEATABLE READ`)。
 
 #### 设置事务隔离级别[#](https://www.cnblogs.com/bytesfly/p/mysql-transaction-innodb-mvcc.html#设置事务隔离级别)
 
