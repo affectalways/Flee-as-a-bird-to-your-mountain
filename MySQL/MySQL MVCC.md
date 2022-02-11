@@ -31,7 +31,7 @@ MVCC在`read committed`和`repeatable read`两个事务隔离级别下工作。
 
 `InnoDB`存储引擎在每行数据的后面添加了三个隐藏字段，如下图所示：
 
-[![表中某行数据示意图](https://img2020.cnblogs.com/blog/1546632/202010/1546632-20201018163556324-1921643603.png)](https://img2020.cnblogs.com/blog/1546632/202010/1546632-20201018163556324-1921643603.png)
+[![表中某行数据示意图](F:\Flee-as-a-bird-to-your-mountain\MySQL\pictures\5.事务-MVCC-实现-隐藏字段.png)](https://img2020.cnblogs.com/blog/1546632/202010/1546632-20201018163556324-1921643603.png)
 
 1. `DB_TRX_ID`(6字节)：表示最近一次对本记录行做修改(`insert`或`update`)的事务ID。至于`delete`操作，`InnoDB`认为是一个`update`操作，不过会更新一个另外的删除位，将行标识为deleted。并非真正删除。
 2. `DB_ROLL_PTR`(7字节)：回滚指针，指向当前记录行的`undo log`信息。
@@ -50,7 +50,7 @@ MVCC在`read committed`和`repeatable read`两个事务隔离级别下工作。
 
 不同事务或者相同事务的对同一记录行的修改形成的`undo log`如下图所示：
 
-[![undo log的示意图](https://img2020.cnblogs.com/blog/1546632/202010/1546632-20201018214116601-1252297826.png)](https://img2020.cnblogs.com/blog/1546632/202010/1546632-20201018214116601-1252297826.png)
+[![undo log的示意图](F:\Flee-as-a-bird-to-your-mountain\MySQL\pictures\5.事务-MVCC-实现-undolog2.png)](https://img2020.cnblogs.com/blog/1546632/202010/1546632-20201018214116601-1252297826.png)
 
 可见链首就是最新的记录，链尾就是最早的旧记录。
 
@@ -190,7 +190,7 @@ bool changes_visible(
 }
 ```
 
-[![事务可见性比较算法图示](https://img2020.cnblogs.com/blog/1546632/202010/1546632-20201018232747852-703197062.png)](https://img2020.cnblogs.com/blog/1546632/202010/1546632-20201018232747852-703197062.png)
+[![事务可见性比较算法图示](F:\Flee-as-a-bird-to-your-mountain\MySQL\pictures\5.事务-MVCC-实现-readview.png)](https://img2020.cnblogs.com/blog/1546632/202010/1546632-20201018232747852-703197062.png)
 
 完整梳理一下整个过程。
 
