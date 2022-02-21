@@ -32,6 +32,7 @@
 - [回溯](leetcode/回溯/目录.md)
 - [动态规划](leetcode/动态规划/目录.md)
 - [双指针](leetcode/双指针/目录.md)
+- [单调栈]((leetcode/单调栈/目录.md))
 
 ## :hammer_and_wrench: 开发语言
 
