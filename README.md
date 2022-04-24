@@ -32,11 +32,16 @@
 
 - [数组](leetcode/数组/目录.md)
 - [链表](leetcode/链表/目录.md)
-- [树](leetcode/树/目录.md)
-- [回溯](leetcode/回溯/目录.md)
-- [动态规划](leetcode/动态规划/目录.md)
-- [双指针](leetcode/双指针/目录.md)
+- [二叉树](./leetcode/二叉树/目录.md)
+- [动态规划](./leetcode/动态规划/目录.md)
+- [双指针](./leetcode/双指针/目录.md)
 - [单调栈](./leetcode/单调栈/目录.md)
+- [贪心](./leetcode/贪心/目录.md)
+- [回溯](./leetcode/回溯/目录.md)
+- [广度、深度优先遍历](./leetcode/广度、深度优先遍历/目录.md)
+- [字符串](./leetcode/字符串/目录.md)
+
+
 
 ## :hammer_and_wrench: 开发语言
 
