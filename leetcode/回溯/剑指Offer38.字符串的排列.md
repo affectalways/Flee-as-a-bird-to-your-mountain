@@ -1,4 +1,4 @@
-#### [剑指 Offer 38. 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/)
+# [剑指 Offer 38. 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/)
 
 输入一个字符串，打印出该字符串中字符的所有排列。
 
@@ -55,6 +55,28 @@ class Solution:
         dfs(0)
         return res
 
+
+```
+
+
+
+#### 或直接使用python三方库
+
+```python
+from itertools import permutations
+
+
+class Solution:
+    def permutation(self, s: str) -> list[str]:
+        group = permutations(s)
+        res = []
+        for item in group:
+            value = ''.join(list(item))
+            # 不允许有重复的
+            if value not in res:
+                res.append(value)
+
+        return res
 
 ```
 
