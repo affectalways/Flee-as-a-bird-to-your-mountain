@@ -1,7 +1,5 @@
-# Offer24 反转链表
 
-
-#### [剑指 Offer 24. 反转链表](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/) 
+# [剑指 Offer 24. 反转链表](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/) 
 
 定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。
 
@@ -22,9 +20,11 @@
 
 
 
-**思路**
+## 解题思路
 
-```
+##### 双指针
+
+```python
 # Definition for singly-linked list.
 class ListNode(object):
     def __init__(self, x):
@@ -48,33 +48,5 @@ class Solution(object):
         return pre
 
 
-def create_link(tmp):
-    head = None
-    cur = None
-    for i in tmp:
-        node = ListNode(i)
-        if head is None:
-            head = node
-            cur = head
-        else:
-            cur.next = node
-            cur = cur.next
-    return head
-
-
-def traversal_link(head):
-    cur = head
-    while cur:
-        print(cur.val)
-        cur = cur.next
-
-
-if __name__ == '__main__':
-    head = create_link([1, 2, 3, 4, 5])
-    # traversal_link(head)
-    solution = Solution()
-    cur = solution.reverseList(head)
-    traversal_link(cur)
 ```
-
 

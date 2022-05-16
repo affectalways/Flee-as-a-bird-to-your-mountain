@@ -1,21 +1,4 @@
----
-title: "Offer18删除链表的节点"
-date: 2020-07-20T22:49:28+08:00
-tags: ["leetcode"]
-keywords: 
-- leetcode
-- blog
-- 博客
-- 领扣
-- Offer18删除链表的节点
-- 算法
-- 链表
-description: "leetcode，Offer18删除链表的节点"
-categories: ["leetcode","链表"]
-draft: false
----
-
-#### [剑指 Offer 18. 删除链表的节点](https://leetcode-cn.com/problems/shan-chu-lian-biao-de-jie-dian-lcof/)
+# [剑指 Offer 18. 删除链表的节点](https://leetcode-cn.com/problems/shan-chu-lian-biao-de-jie-dian-lcof/)
 
 给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。
 
@@ -44,7 +27,13 @@ draft: false
 - 题目保证链表中节点的值互不相同
 - 若使用 C 或 C++ 语言，你不需要 `free` 或 `delete` 被删除的节点
 
-#### 思路：
+
+
+## 解题思路
+
+```
+哑节点+遍历+双指针
+```
 
 删除值为 val 的节点可分为两步：定位节点、修改引用。
 
@@ -67,15 +56,7 @@ draft: false
 
 ```
 
-```
-# -*- coding: utf-8 -*-
-# @Time     : 2020/7/18 23:44
-# @Author   : affectalways
-# @Site     : 
-# @Contact  : affectalways@gmail.com
-# @File     : offer18.py
-# @Software : PyCharm 
-
+```python
 class ListNode(object):
     def __init__(self, x):
         self.val = x
@@ -97,32 +78,6 @@ class Solution(object):
         if cur:
             pre.next = cur.next
         return head
-
-
-def create_link(tmp):
-    cur = head = None
-    for i in tmp:
-        node = ListNode(i)
-        if head is None:
-            head = node
-            cur = head
-        else:
-            cur.next = node
-            cur = cur.next
-
-    return head
-
-
-def traversal_link(head):
-    cur = head
-    while cur:
-        print(cur.val)
-        cur = cur.next
-
-
-if __name__ == '__main__':
-    head = create_link([4, 5, 1, 9])
-    traversal_link(head)
 
 ```
 
