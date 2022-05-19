@@ -21,7 +21,9 @@
 
 
 
-**思路**
+## **思路**
+
+**栈**
 
 ```
 ## 方法一：栈
@@ -49,7 +51,7 @@
 
 **代码**
 
-```
+```python
 class ListNode(object):
     def __init__(self, x):
         self.val = x
@@ -81,25 +83,5 @@ class Solution(object):
         #     cur.next = node
         #     cur = cur.next
         # return result
-
-
-def create_list(sequence):
-    headA = None
-    cur = None
-    for i in sequence:
-        node = ListNode(i)
-        if headA is None:
-            headA = cur = node
-            continue
-        cur.next = node
-        cur = cur.next
-    return headA
-
-
-if __name__ == '__main__':
-    solution = Solution()
-    head = create_list([1, 3, 2])
-    result = solution.reversePrint(head)
-
 ```
 
