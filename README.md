@@ -35,7 +35,7 @@
 - [二叉树](./leetcode/二叉树/目录.md)
 - [动态规划](./leetcode/动态规划/目录.md)
 - [双指针](./leetcode/双指针/目录.md)
-- [单调栈](./leetcode/单调栈/目录.md)
+- [栈](./leetcode/栈/目录.md)
 - [贪心](./leetcode/贪心/目录.md)
 - [回溯](./leetcode/回溯/目录.md)
 - [广度、深度优先遍历](./leetcode/广度、深度优先遍历/目录.md)
