@@ -101,7 +101,7 @@
 
 
 
-```
+```python
 class Solution:
     def minFlipsMonoIncr(self, s: str) -> int:
         n = len(s)
