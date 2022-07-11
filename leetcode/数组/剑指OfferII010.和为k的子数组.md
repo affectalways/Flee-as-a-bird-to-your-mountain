@@ -36,3 +36,26 @@
 
 
 ## 解题思路
+
+```
+前缀和
+```
+
+```python
+class Solution:
+    def subarraySum(self, nums, k: int) -> int:
+        length = len(nums)
+        # 前缀和, 设置缓存数组长度为length + 1, 需要保存pres[0] = 0, 否则nums[0:1]获取和会出现问题
+        pres = [0] * (length + 1)
+        for i in range(1, length + 1):
+            pres[i] = pres[i - 1] + nums[i - 1]
+
+        res = 0
+        for i in range(1, length + 1):
+            for j in range(0, i):
+                if (pres[i] - pres[j]) == k:
+                    res += 1
+
+        return res
+```
+
