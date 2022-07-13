@@ -95,7 +95,6 @@ $$
   dp[i][j] =dp[i-1][j]dp[i][j]=dp[i−1][j] ；
   $$
   
-  
 - 选择第` i`件物品：第`i `件物品占据容量$w_i$ ，前` i-1` 件物品放入剩下的容量为$ j-w_i$ 的背包中，问题也就转化为了前	` i-1`	 件物品放入容量为 的$ j-w_i$ 背包中所获得的价值$dp[i-1][j-w_i]$加上要放入的第 `i` 件物品的价值$v[i]$
   $$
   dp[i][j] =dp[i-1][j-w_i] + v_i
@@ -145,3 +144,32 @@ $$
   
 
 https://leetcode.cn/problems/YaVDxD/solution/jia-jian-de-mu-biao-zhi-by-leetcode-solu-be5t/
+
+```
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        # x + y = sum  
+        # x - y = target
+        # --> 2 * x = sum + target
+        # 用01背包
+        n = len(nums)
+
+        tot_sum = sum(nums)
+        if (tot_sum + target) % 2 == 1:
+            return 0
+        ttt = (tot_sum + target) // 2
+        if ttt < 0:
+            return 0
+
+        #---- 01背包
+        dp = [0 for _ in range(ttt + 1)]
+        dp[0] = 1
+        for i in range(n):
+            y = nums[i]
+            for t in range(ttt, y - 1, -1):
+                x = t - y
+                dp[t] += dp[x]
+
+        return dp[ttt]
+```
+
