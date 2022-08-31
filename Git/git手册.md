@@ -4,6 +4,28 @@
 
 本仓库用于自己学习，所以全部迁过来了，若想要最新的，请移步[原作者仓库](https://github.com/xjh22222228/git-manual)！
 
+<p align="center">
+  <img src="media/poster.png" width="300" />
+  <br />
+  <b>Git常用命令参考手册</b>
+  <p align="center">基本涵盖了在开发中用到的git命令，能满足日常需求</p>
+  <p align="center">通俗易懂的例子，30分钟快速入门</p>
+  <p align="center">
+    <a href="https://github.com/xjh22222228/git-manual/stargazers"><img src="https://img.shields.io/github/stars/xjh22222228/git-manual" alt="Stars Badge"/></a>
+    <img src="https://img.shields.io/github/license/xjh22222228/git-manual" />
+    <a href="https://hits.dwyl.com/xjh22222228/git-manual">
+      <img src="https://hits.dwyl.com/xjh22222228/git-manual.svg" />
+    </a>
+  </p>
+</p>
+
+
+
+注：2020年10月 GitHub 已将默认分支 `master` 更名为 `main` 分支。
+
+
+
+---
 
 
 # 目录
@@ -73,11 +95,11 @@ git config --global --get user.name
 git config --global --get user.email
 
 # 设置全局用户名/邮箱
-git config --global user.name "affectalways"
+git config --global user.name "xiejiahe"
 git config --global user.email "example@example.com"
 
 # 设置本地当前工作区仓库用户名/邮箱
-git config --local user.name "affectalways"
+git config --local user.name "xiejiahe"
 git config --local user.email "example@example.com"
 
 # 删除配置
@@ -110,7 +132,7 @@ git config --global credential.helper cache # 临时，默认15分钟
 
 #### 命令别名配置
 
-git 可以使用别名来简化一些复杂命令，类似 [alias](https://github.com/affectalways/linux-manual#alias) 命令。
+git 可以使用别名来简化一些复杂命令，类似 [alias](https://github.com/xjh22222228/linux-manual#alias) 命令。
 
 ```bash
 # git st 等价于 git status
@@ -175,33 +197,33 @@ git init --bare
 
 ```bash
 # https 协议克隆
-git clone https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git
+git clone https://github.com/xjh22222228/git-manual.git
 
 # SSH 协议克隆
-git clone git@github.com:affectalways/Flee-as-a-bird-to-your-mountain.git
+git clone git@github.com:xjh22222228/git-manual.git
 
 # 克隆指定分支， -b 指定分支名字，实际上是克隆所有分支并切换到 develop 分支上
-git clone -b develop https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git
+git clone -b develop https://github.com/xjh22222228/git-manual.git
 
 # --single-branch 完全只克隆指定分支
-git clone -b develop --single-branch https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git
+git clone -b develop --single-branch https://github.com/xjh22222228/git-manual.git
 
 # 指定克隆后的文件夹名称
-git clone https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git git-study # 如果后面是 . 在当前目录创建
+git clone https://github.com/xjh22222228/git-manual.git git-study # 如果后面是 . 在当前目录创建
 
 # 递归克隆，如果项目包含子模块就非常有用
-git clone --recursive https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git
+git clone --recursive https://github.com/xjh22222228/git-manual.git
 
 # 浅克隆, 克隆深度为1, 只克隆指定分支且历史记录只保留最后一条, 通常用于减少克隆时间和项目大小
-git clone --depth=1 https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git
-git clone --depth=1 --no-single-branch https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git # --no-single-branch 同时克隆其他所有分支
+git clone --depth=1 https://github.com/xjh22222228/git-manual.git
+git clone --depth=1 --no-single-branch https://github.com/xjh22222228/git-manual.git # --no-single-branch 同时克隆其他所有分支
 
 
 # 裸克隆, 没有工作区内容，不能进行提交修改，一般用于复制仓库
-git clone --bare https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git
+git clone --bare https://github.com/xjh22222228/git-manual.git
 
 # 镜像克隆, 也是裸克隆, 区别于包含上游版本库注册
-git clone --mirror https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git
+git clone --mirror https://github.com/xjh22222228/git-manual.git
 ```
 
 
@@ -225,7 +247,7 @@ mkdir hello-git && cd hello-git
 git init
 
 # 3、设置仓库地址
-git remote add origin https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git
+git remote add origin https://github.com/xjh22222228/git-manual.git
 
 # 4、开启稀疏检出功能
 git config core.sparsecheckout true
@@ -242,7 +264,7 @@ git pull origin master
   <summary>演示克隆指定文件夹.gif</summary>
 
 
-  <img src="https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/gitclone-sparsecheckout.gif">
+  <img src="https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/gitclone-sparsecheckout.gif">
 </details>
 
 
@@ -269,7 +291,7 @@ git remote -v
 
 # 添加远程仓库地址 example 是自定义名字
 # 添加完后可以通过 git remote 就能看到 example
-git remote add example https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git
+git remote add example https://github.com/xjh22222228/git-manual.git
 
 # 查看指定远程仓库信息
 git remote show example
@@ -281,7 +303,7 @@ git remote rename oldName newName # git remote rename example simple
 git remote remove example
 
 # 修改远程仓库地址，从HTTPS更改为SSH
-git remote set-url origin git@github.com:affectalways/Flee-as-a-bird-to-your-mountain.git
+git remote set-url origin git@github.com:xjh22222228/git-manual.git
 
 # 后续的推送可以指定仓库名字
 git push example
@@ -446,7 +468,7 @@ git checkout -t upstream/main
 在克隆时使用 `--depth=1` 切换其他分支，比如切换 dev 分支：
 
 ```bash
-git clone --depth=1 https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git
+git clone --depth=1 https://github.com/xjh22222228/git-manual.git
 
 # 切换 dev 分支
 git remote set-branches origin 'dev'
@@ -592,7 +614,7 @@ git cherry-pick --continue
   <summary>演示转移提交.gif: 把 `dev` 分支的第三次提交转移到当前 `master` 分支。</summary>
 
 
-  <img src="https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/cherry.gif">
+  <img src="D:\git_code\git-manual\media\cherry.gif">
 </details>
 
 
@@ -680,7 +702,7 @@ git log -i --grep="fix: #28"
 git log -S "alert(1)"
 
 # 查看指定作者历史记录
-git log --author=affectalways
+git log --author=xjh22222228
 
 # 查看某个文件的历史提交记录
 git log README.md
@@ -1142,17 +1164,17 @@ git rebase -i e88835de # 或者以 commit_id 进行操作
 
 这里是倒序排列，最新的记录在最后
 
-<img src="D:/git_code/Flee-as-a-bird-to-your-mountain/media/gitrebase-3.png" width="700" />
+<img src="https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/gitrebase-3.png" width="700" />
 
 
 2、除了第一条后面全部改成 `s` 或 `squash`:
 
-<img src="D:\git_code\Flee-as-a-bird-to-your-mountain\media\gitrebase-4.png" width="700" />
+<img src="https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/gitrebase-4.png" width="700" />
 
 
 3、按 `:wq` 退出交互式，接着进入另一个交互式来编辑commit消息, 如果不需要修改之前的commit消息则直接退出：
 
-<img src="https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/gitrebase-5.png" width="700" />
+<img src="D:\git_code\git-manual\media\gitrebase-5.png" width="700" />
 
 
 4、强制推送到远端
@@ -1174,8 +1196,8 @@ git push -u -f origin main
 
 可以看出 `git rebase` 是一条直线的，`git merge` 则是各种交叉，很难理解。
 
-<img src="https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/gitrebase-1.png" width="700" />
-<img src="D:/git_code/Flee-as-a-bird-to-your-mountain/media/gitrebase-2.png" width="700" />
+<img src="https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/gitrebase-1.png" width="700" />
+<img src="D:/git_code/git-manual/media/gitrebase-2.png" width="700" />
 
 
 假设有2个分支，main 和 dev，下面使用 `git rebase` 将 dev 分支代码合并到 main 分支上。
@@ -1287,7 +1309,7 @@ git flow release finish v1.1.0
 
 #### Git flow schema
 
-![](https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/git-flow.png)
+![](https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/git-flow.png)
 
 
 
@@ -1311,11 +1333,11 @@ git flow release finish v1.1.0
 添加完子模块后会发现根目录下多了个 `.gitmodules` 元数据文件，主要是用于管理子模块。
 
 ```bash
-git submodule add https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git # 默认添加到当前目录下
-git submodule add https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git submodules/Flee-as-a-bird-to-your-mountain  # 添加到指定目录
+git submodule add https://github.com/xjh22222228/git-manual.git # 默认添加到当前目录下
+git submodule add https://github.com/xjh22222228/git-manual.git submodules/git-manual  # 添加到指定目录
 
 # -b 指定需要添加仓库的某个分支
-git submodule add -b develop https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git
+git submodule add -b develop https://github.com/xjh22222228/git-manual.git
 ```
 
 
@@ -1338,7 +1360,7 @@ git push
 
 ```bash
 # --recursive 用于递归克隆，否则子模块目录是空的
-git clone --recursive https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git
+git clone --recursive https://github.com/xjh22222228/git-manual.git
 
 # 如果已经克隆了一个包含子模块的项目，但忘记了 --recursive， 可以使用此命令 初始化、抓取并检出任何嵌套的子模块
 git submodule update --init --recursive
@@ -1364,7 +1386,7 @@ git submodule foreach -q --recursive 'git checkout $(git config -f $toplevel/.gi
 git pull
 
 # 这个时候需要进入子模块目录进行更新, 这样就完成了一个子模块更新，但是如果有很多子模块就比较麻烦了
-cd Flee-as-a-bird-to-your-mountain && git pull
+cd git-manual && git pull
 ```
 
 方法二：使用 `git submodule update` 更新子模块
@@ -1387,7 +1409,7 @@ git pull --recurse-submodules
 如果嫌麻烦每次 git pull 都需要手动添加 `--recurse-submodules`，可以配置 git pull 的默认行为， 如何配置请参考 [配置](#配置)
 
 
-具体使用还可以看这里 [git submodule子模块使用教程](https://www.affectalways.com/blog/detail/5dbceefc0bb52b1c88c30853)
+具体使用还可以看这里 [git submodule子模块使用教程](https://www.xiejiahe.com/blog/detail/5dbceefc0bb52b1c88c30853)
 
 
 
@@ -1438,7 +1460,7 @@ git subtree split --prefix=<prefix> [OPTIONS] [<commit>]
 添加子仓库后, 会跟普通文件一样看待，可以进入 sub/common 目录执行 `git remote -v` 会发现没有仓库。
 
 ```bash
-git subtree add --prefix=sub/common https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git main --squash
+git subtree add --prefix=sub/common https://github.com/xjh22222228/git-manual.git main --squash
 ```
 
 
@@ -1448,7 +1470,7 @@ git subtree add --prefix=sub/common https://github.com/affectalways/Flee-as-a-bi
 当远程子仓库有内容变更时，可以通过下面命令进行更新：
 
 ```bash
-git subtree pull --prefix=sub/common https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git main --squash
+git subtree pull --prefix=sub/common https://github.com/xjh22222228/git-manual.git main --squash
 ```
 
 
@@ -1462,7 +1484,7 @@ git subtree pull --prefix=sub/common https://github.com/affectalways/Flee-as-a-b
 git add sub/common
 git commit -m "子仓库修改"
 # 然后推送
-git subtree push --prefix=sub/common https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git main --squash
+git subtree push --prefix=sub/common https://github.com/xjh22222228/git-manual.git main --squash
 ```
 
 
@@ -1495,7 +1517,7 @@ git subtree split --prefix=sub/common --branch=main
 
 ```bash
 # common 是仓库名字，可以随意定义
-git remote add -f common https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git
+git remote add -f common https://github.com/xjh22222228/git-manual.git
 ```
 
 要做其他 `git subtree` 命令时就不需要敲仓库地址了：
@@ -1506,10 +1528,10 @@ git subtree push --prefix=sub/common common main --squash
 
 虽然省去了仓库地址，命令还是太长。
 
-还有另一种解决方案，就是使用别名，例如在 `mac` 或 `linux` 中使用 [`alias`](https://github.com/affectalways/linux-manual#alias) 命令:
+还有另一种解决方案，就是使用别名，例如在 `mac` 或 `linux` 中使用 [`alias`](https://github.com/xjh22222228/linux-manual#alias) 命令:
 
 ```bash
-alias push="git subtree push --prefix=sub/common https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git main --squash"
+alias push="git subtree push --prefix=sub/common https://github.com/xjh22222228/git-manual.git main --squash"
 ```
 
 也可以使用 git 自带的别名命令 => [命令别名配置](#命令别名配置)
@@ -1519,7 +1541,7 @@ alias push="git subtree push --prefix=sub/common https://github.com/affectalways
 ```json
 {
   "scripts": {
-    "push": "git subtree push --prefix=sub/common https://github.com/affectalways/Flee-as-a-bird-to-your-mountain.git main --squash"
+    "push": "git subtree push --prefix=sub/common https://github.com/xjh22222228/git-manual.git main --squash"
   }
 }
 ```
@@ -1650,9 +1672,9 @@ git archive --output "./output.zip" master src tests
 例子：
 
 ```bash
-git log -n 1 --pretty=format:"%an" # affectalways
+git log -n 1 --pretty=format:"%an" # xjh22222228
 
-git log -n 1 --pretty=format:"%ae" # affectalways@gmail.com
+git log -n 1 --pretty=format:"%ae" # xjh22222228@gmail.com
 
 git log -n 1 --pretty=format:"%d" #  (HEAD -> master, origin/master, origin/HEAD)
 
@@ -1785,7 +1807,7 @@ git commit -m "refactor: 流程模块重构"
   <summary>点击查看解决冲突.gif</summary>
 
 
-  <img src="https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/git-merge-conflict.gif">
+  <img src="https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/git-merge-conflict.gif">
 </details>
 
 
@@ -1812,21 +1834,21 @@ git commit -m "refactor: 流程模块重构"
 有时候需要从一个旧仓库迁移到新仓库，如果手动只能把文件进行迁移，但是如果需要把分支、标签、历史记录一起迁移就需要复制仓库。
 
 
-旧仓库A: https://github.com/affectalways/A.git
-新仓库B: https://github.com/affectalways/B.git
+旧仓库A: https://github.com/xjh22222228/A.git
+新仓库B: https://github.com/xjh22222228/B.git
 
 1、克隆旧裸仓库
 
 ```bash
 # 克隆裸仓库，里面没有工作区内容
-git clone --bare https://github.com/affectalways/A.git
+git clone --bare https://github.com/xjh22222228/A.git
 ```
 
 2、镜像推送至新仓库
 
 ```bash
 cd A
-git push --mirror https://github.com/affectalways/B.git
+git push --mirror https://github.com/xjh22222228/B.git
 ```
 
 3、删除刚刚克隆的旧仓库
@@ -1838,7 +1860,7 @@ rm -rf A
 4、拉取新仓库
 
 ```bash
-git clone https://github.com/affectalways/B.git
+git clone https://github.com/xjh22222228/B.git
 ```
 
 除了通过命令迁移之外，可以通过网页导入仓库的方式也可以。
@@ -1875,7 +1897,7 @@ git config --global alias.hist "log --graph --decorate --oneline --pretty=format
   <summary>效果图.png</summary>
 
 
-  <img src="D:\git_code\Flee-as-a-bird-to-your-mountain\media\git-log.png">
+  <img src="https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/git-log.png">
 </details>
 
 
@@ -1951,7 +1973,7 @@ cat ~/.ssh/id_rsa.pub
   <summary>演示生成SSH Key.gif</summary>
 
 
-  <img src="https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/ssh-key.gif">
+  <img src="https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/ssh-key.gif">
 </details>
 
 
@@ -2006,4 +2028,33 @@ git credential-manager uninstall
 git config --global credential.helper ""
 git config --global --unset credential.helper
 ```
+
+
+
+
+
+
+
+
+## 加速
+
+在国内克隆或下载版本会很慢，可以借助下面镜像站点进行加速。
+
+
+克隆
+
+```bash
+git clone https://github.com/xjh22222228/git-manual.git
+# ↓ 只需要将域名替换即可, 例如:
+git clone https://hub.fastgit.xyz/xjh22222228/git-manual.git
+```
+
+资源加速：
+
+```bash
+https://raw.githubusercontent.com/xjh22222228/git-manual/main/media/poster.png
+# ↓ 替换为
+https://cdn.jsdelivr.net/gh/xjh22222228/git-manual@main/media/poster.png
+```
+
 
