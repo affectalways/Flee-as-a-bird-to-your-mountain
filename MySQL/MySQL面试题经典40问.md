@@ -42,6 +42,7 @@
 - [Mysql主从复制原理的是啥？](#Mysql主从复制原理的是啥？)
 - [Mysql主从复制同步方式有哪些？](#Mysql主从复制同步方式有哪些？)
 - [Mysql主从同步延时产生原因?怎么优化？](#Mysql主从同步延时产生原因?怎么优化？)
+- [参考链接](#参考链接)
 
 
 
@@ -815,3 +816,11 @@ Master 不关心 Slave 的数据有没有写入成功。因此如果Master和Sla
 ##### 总结
 
 主机与从机之间的物理延迟是无法避免的，既然无法避免就可以考虑尝试通过缓存等方式，降低新修改数据被立即读取的概率。
+
+
+
+
+
+### 参考链接
+
+- [https://mp.weixin.qq.com/s?__biz=MzIzNjg4OTcyNA==&mid=2247484481&idx=1&sn=b53408811b84dc1f25b3b479ce2a0105&chksm=e8d1b752dfa63e4413c7b13bac40399adbebd84cb01139223a4f2cdfff55dbaf6b475a389702&cur_album_id=2138177096085471232&scene=190#rd](https://mp.weixin.qq.com/s?__biz=MzIzNjg4OTcyNA==&mid=2247484481&idx=1&sn=b53408811b84dc1f25b3b479ce2a0105&chksm=e8d1b752dfa63e4413c7b13bac40399adbebd84cb01139223a4f2cdfff55dbaf6b475a389702&cur_album_id=2138177096085471232&scene=190#rd)
