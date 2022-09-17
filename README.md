@@ -28,6 +28,7 @@
 
 - [MySQL](https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/MySQL/0.%E7%9B%AE%E5%BD%95.md)
 - [Redis](Redis/0.目录.md)
+- [MongoDB](MongoDB/目录.md)
 
 
 
