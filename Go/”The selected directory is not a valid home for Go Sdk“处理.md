@@ -1,4 +1,6 @@
-# "The selected directory is not a valid home for Go Sdk"处理
+# "The selected directory is not a valid home f
+
+# or Go Sdk"处理
 
 
 
