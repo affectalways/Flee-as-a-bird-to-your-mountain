@@ -1,19 +1,4 @@
----
-title: "Goland 2020版破解"
-date: 2020-07-25T21:26:36+08:00
-tags: ["go"]
-keywords: 
-- 破解
-- goland
-- idea
-- 破解
-- source code
-- go
-categories: ["golang"]
-draft: false
----
-
-**GoLand 2020版破解教程**
+# GoLand 2020版破解教程
 
 本教程适用于GoLand 2020 1.4版本，其他版本理论上是一致的。
 
