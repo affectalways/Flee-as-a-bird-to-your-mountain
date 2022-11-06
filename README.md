@@ -66,7 +66,7 @@
 
 - [Python](./python/0.目录.md)
 - [Go](./Go/0.目录.md)
-- [K8S](./K8S/0.目录.md)
+- [Kubernetes](./Kubernetes/0.目录.md)
 
    </br>
 
