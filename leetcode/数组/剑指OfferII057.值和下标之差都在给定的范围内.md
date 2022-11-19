@@ -49,3 +49,27 @@
 维护一个大小为k的滑窗。当i走到k+1开始，每前进一位就要淘汰一位i-k-1位置的元素。
 ```
 
+```python
+class Solution:
+    def containsNearbyAlmostDuplicate(self, nums, k: int, t: int) -> bool:
+        if not nums:
+            return False
+
+        start = end = 0
+
+        while end < len(nums) + 1:
+            m = abs(nums[start] - nums[end])
+            n = abs(start - end)
+            if m <= t and n <= k:
+                return True
+
+            if m > t:
+                end += 1
+
+            if n > k:
+                start += 1
+
+        return False
+
+```
+
