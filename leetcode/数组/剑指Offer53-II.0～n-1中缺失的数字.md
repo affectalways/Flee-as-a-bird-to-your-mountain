@@ -1,17 +1,4 @@
----
-title: "Offer53 0~n-1中缺失的数字"
-date: 2020-07-28T22:48:06+09:00
-tags: ["leetcode"]
-keywords: 
-- leetcode
-- 数组
-- hugo
-- blog
-categories: ["leetcode","数组"]
-draft: false
----
-
-#### [剑指 Offer 53 - II. 0～n-1中缺失的数字](https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof/)
+# [剑指 Offer 53 - II. 0～n-1中缺失的数字](https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof/)
 
 一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围0～n-1之内。在范围0～n-1内的n个数字中有且只有一个数字不在该数组中，请找出这个数字。
 

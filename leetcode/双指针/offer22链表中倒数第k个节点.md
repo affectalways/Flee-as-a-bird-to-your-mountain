@@ -26,7 +26,7 @@
 
 **代码**
 
-```
+```python
 class Solution(object):
     def getKthFromEnd(self, head, k):
         """
@@ -78,5 +78,4 @@ class Solution(object):
 
         return cur
 ```
-
 
