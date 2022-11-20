@@ -33,11 +33,8 @@ class Solution:
     def constructArr(self, a):
         path = []
         for i in range(len(a)):
-            if i + 1 > len(a):
-                t = a[0:i]
-            else:
-                t = a[0:i] + a[i + 1:]
-                path.append(reduce(lambda x, y: x * y, t))
+            t = a[0:i] + a[i + 1:]
+            path.append(reduce(lambda x, y: x * y, t))
 
         return path
 ```
