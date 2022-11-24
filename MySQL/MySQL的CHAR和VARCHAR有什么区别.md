@@ -1,6 +1,4 @@
-## MySQL - CHAR 与 VARCHAR - 有什么区别？
-
-
+## MySQL的CHAR和VARCHAR有什么区别
 
 **相同点：**
 
