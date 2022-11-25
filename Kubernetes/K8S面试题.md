@@ -28,6 +28,38 @@ Kubernetes是一个针对容器应用，进行自动部署、弹性伸缩和管�
 
 </br></br>
 
+### K8s架构的组成是什么
+
+和大多数分布式系统一样，K8S集群至少需要一个主节点（Master）和多个工作节点（Node）。
+
+- 主节点主要用于暴露API，调度部署和节点的管理；
+- 工作节点Node是Kubernetes集群架构中运行Pod的服务节点，是Kubernetes集群操作的单元，是Pod运行的宿主机。运行Docker Eninge服务，守护进程kubelet及负载均衡器kube-proxy。
+
+</br></br>
+
+### k8s架构图及交互流程
+
+![](https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/K8S%E9%9D%A2%E8%AF%951.png)
+
+k8s 主要有 Master 节点和工作节点组成。主节点主要对集群做出全局决策(比如调度)，以及检测和响应集群事件(例如资源不足，自动扩缩容)；从节点负责维护运行的 Pod 并进行通信的网络代理。
+
+**Master 节点（默认不参加实际工作）**主要有以下组件：
+
+- kube-apiserver：**负责对外暴露 Kubernetes API**，在K8s架构中承担的是“桥梁”的角色，作为资源操作的唯一入口，它提供了认证、授权、访问控制、API注册和发现等机制。**客户端与k8s群集及K8s内部组件的通信，都要通过Api Server这个组件**
+- etcd：作为保存 Kubernetes 所有集群数据的后台数据库，保存整个集群的状态
+- kube-scheduler：负责资源的调度，按照预定的调度策略将pod调度到相应的node节点上
+- kube-controller-manager：负责维护集群的状态，比如故障检测、自动扩展、滚动更新等
+- Kubectl：客户端命令行工具，作为整个K8s集群的操作入口，可以使用该工具控制Kubernetes集群管理器，如检查群集资源，创建、删除和更新组件，查看应用程序。
+
+**Node 节点**有以下组件：
+
+- kubelet：主要负责执行、监控由调度器分配的 Pod，相当于是 Master 在每个 Node 节点上的代理。一般运行在所有的节点，是Node节点的代理，当Scheduler确定某个node上运行pod之后，会将pod的具体信息（image，volume）等发送给该节点的kubelet，kubelet根据这些信息创建和运行容器，并向master返回运行状态。（自动修复功能：如果某个节点中的容器宕机，它会尝试重启该容器，若重启无效，则会将该pod杀死，然后重新创建一个容器）
+- kube-proxy：k8s 在每个节点上的网络代理，负责为 Service 提供集群内部的服务发现和负载均衡。
+- Pod：是k8s集群里面最小的单位。每个pod里边可以运行一个或多个container（容器），如果一个pod中有两个container，那么container的USR（用户）、MNT（挂载点）、PID（进程号）是相互隔离的，UTS（主机名和域名）、IPC（消息队列）、NET（网络栈）是相互共享的。我比较喜欢把pod来当做豌豆夹，而豌豆就是pod中的container；
+- container-runtime：是负责管理运行容器的软件，比如docker
+
+</br></br>
+
 ### k8s相关基础概念
 
 #### Master
@@ -40,7 +72,7 @@ Kubernetes集群的管理节点，负责管理集群，提供集群的资源数�
 
 Node 是 Pod 真正运行的主机，可以是物理机，也可以是虚拟机。
 
-Node（worker）是Kubernetes集群架构中运行Pod的服务节点，是Kubernetes集群操作的单元，用来承载被分配Pod的运行，是Pod运行的宿主机。运行Docker Eninge服务，守护进程kunelet及负载均衡器kube-proxy。
+Node（worker）是Kubernetes集群架构中运行Pod的服务节点，是Kubernetes集群操作的单元，用来承载被分配Pod的运行，是Pod运行的宿主机。运行Docker Eninge服务，守护进程kubelet及负载均衡器kube-proxy。
 
 为了管理 Pod，每个 Node 节点上至少要运行 container runtime（比如 docker 或者 rkt）、kubelet 和 kube-proxy 服务。
 
@@ -104,54 +136,9 @@ Pod的横向自动扩容，也是Kubernetes的一种资源，通过追踪分析R
 
 </br></br>
 
-### K8s架构的组成是什么
 
-和大多数分布式系统一样，K8S集群至少需要一个主节点（Master）和多个工作节点（Node）。
 
-- 主节点主要用于暴露API，调度部署和节点的管理；
-- 工作节点运行一个容器运行环境，一般是docker环境（类似docker环境的还有rkt），同时运行一个K8s的代理（kubelet）用于和master通信。计算节点也会运行一些额外的组件，像记录日志，节点监控，服务发现等等。工作节点是k8s集群中真正工作的节点。
 
-</br></br>
-
-### K8S架构细分
-
-**1、Master节点（默认不参加实际工作）：**
-
-- Kubectl：客户端命令行工具，作为整个K8s集群的操作入口；
-- Api Server：在K8s架构中承担的是“桥梁”的角色，作为资源操作的唯一入口，它提供了认证、授权、访问控制、API注册和发现等机制。客户端与k8s群集及K8s内部组件的通信，都要通过Api Server这个组件；
-- Controller-manager：负责维护群集的状态，比如故障检测、自动扩展、滚动更新等；
-- Scheduler：负责资源的调度，按照预定的调度策略将pod调度到相应的node节点上；
-- Etcd：担任数据中心的角色，保存了整个群集的状态；
-
-**2、Node节点：**
-
-- Kubelet：负责维护容器的生命周期，同时也负责Volume和网络的管理，一般运行在所有的节点，是Node节点的代理，当Scheduler确定某个node上运行pod之后，会将pod的具体信息（image，volume）等发送给该节点的kubelet，kubelet根据这些信息创建和运行容器，并向master返回运行状态。（自动修复功能：如果某个节点中的容器宕机，它会尝试重启该容器，若重启无效，则会将该pod杀死，然后重新创建一个容器）；
-- Kube-proxy：Service在逻辑上代表了后端的多个pod。负责为Service提供cluster内部的服务发现和负载均衡（外界通过Service访问pod提供的服务时，Service接收到的请求后就是通过kube-proxy来转发到pod上的）；
-- container-runtime：是负责管理运行容器的软件，比如docker
-- Pod：是k8s集群里面最小的单位。每个pod里边可以运行一个或多个container（容器），如果一个pod中有两个container，那么container的USR（用户）、MNT（挂载点）、PID（进程号）是相互隔离的，UTS（主机名和域名）、IPC（消息队列）、NET（网络栈）是相互共享的。我比较喜欢把pod来当做豌豆夹，而豌豆就是pod中的container；
-
-</br></br>
-
-### Kubernetes集群相关组件
-
-Kubernetes Master控制组件，调度管理整个系统（集群），包含如下组件：
-
-- Kubernetes API Server：作为Kubernetes系统的入口，其封装了核心对象的增删改查操作，以RESTful API接口方式提供给外部客户和内部组件调用，集群内各个功能模块之间数据交互和通信的中心枢纽。
-- Kubernetes Scheduler：为新建立的Pod进行节点（Node）选择（即分配机器），负责集群的资源调度。
-- Kubernetes Controller：负责执行各种控制器，目前已经提供了很多控制器来保证Kubernetes的正常运行。
-- Replication Controller：管理维护Replication Controller，关联Replication Controller和Pod，保证Replication Controller定义的副本数量与实际运行Pod数量一致。
-- Node Controller：管理维护Node，定期检查Node的健康状态，标识出（失效|未失效）的Node节点。
-- Namespace Controller：管理维护Namespace，定期清理无效的Namespace，包括Namesapce下的API对象，比如Pod、Service等。
-- Service Controller：管理维护Service，提供负载以及服务代理。
-- EndPoints Controller：管理维护Endpoints，关联Service和Pod，创建Endpoints为Service的后端，当Pod发生变化时，实时更新Endpoints。
-- Service Account Controller：管理维护Service Account，为每个Namespace创建默认的Service Account，同时为Service Account创建Service Account Secret。
-- Persistent Volume Controller：管理维护Persistent Volume和Persistent Volume Claim，为新的Persistent Volume Claim分配Persistent Volume进行绑定，为释放的Persistent Volume执行清理回收。
-- Daemon Set Controller：管理维护Daemon Set，负责创建Daemon Pod，保证指定的Node上正常的运行Daemon Pod。
-- Deployment Controller：管理维护Deployment，关联Deployment和Replication Controller，保证运行指定数量的Pod。当Deployment更新时，控制实现Replication Controller和Pod的更新。
-- Job Controller：管理维护Job，为Jod创建一次性任务Pod，保证完成Job指定完成的任务数目
-- Pod Autoscaler Controller：实现Pod的自动伸缩，定时获取监控数据，进行策略匹配，当满足条件时执行Pod的伸缩动作。
-
-</br></br>
 
 ### Kubernetes RC的机制
 
@@ -164,60 +151,7 @@ Replication Controller用来管理Pod的副本，保证集群中存在指定数�
 Replica Set和Replication Controller类似，都是确保在任何给定时间运行指定数量的Pod副本。不同之处在于RS使用基于集合的选择器，而Replication Controller使用基于权限的选择器。
 </br></br>
 
-### kube-proxy的作用
 
-kube-proxy运行在所有节点上，它监听apiserver中service和endpoint的变化情况，创建路由规则以提供服务IP和负载均衡功能。简单理解此进程是Service的透明代理兼负载均衡器，其核心功能是将到某个Service的访问请求转发到后端的多个Pod实例上。
-
-</br></br>
-
-### kube-proxy iptables的原理
-
-Kubernetes从1.2版本开始，将iptables作为kube-proxy的默认模式。iptables模式下的kube-proxy不再起到Proxy的作用，其核心功能：通过API Server的Watch接口实时跟踪Service与Endpoint的变更信息，并更新对应的iptables规则，Client的请求流量则通过iptables的NAT机制“直接路由”到目标Pod。
-
-</br></br>
-
-### kube-proxy ipvs的原理
-
-IPVS在Kubernetes1.11中升级为GA稳定版。IPVS则专门用于高性能负载均衡，并使用更高效的数据结构（Hash表），允许几乎无限的规模扩张，因此被kube-proxy采纳为最新模式。
-
-在IPVS模式下，使用iptables的扩展ipset，而不是直接调用iptables来生成规则链。iptables规则链是一个线性的数据结构，ipset则引入了带索引的数据结构，因此当规则很多时，也可以很高效地查找和匹配。
-
-可以将ipset简单理解为一个IP（段）的集合，这个集合的内容可以是IP地址、IP网段、端口等，iptables可以直接添加规则对这个“可变的集合”进行操作，这样做的好处在于可以大大减少iptables规则的数量，从而减少性能损耗。
-
-</br></br>
-
-### kube-proxy ipvs和iptables的异同
-
-iptables与IPVS都是基于Netfilter实现的，但因为定位不同，二者有着本质的差别：iptables是为防火墙而设计的；IPVS则专门用于高性能负载均衡，并使用更高效的数据结构（Hash表），允许几乎无限的规模扩张。
-
-与iptables相比，IPVS拥有以下明显优势：
-
-- 为大型集群提供了更好的可扩展性和性能；
-- 支持比iptables更复杂的复制均衡算法（最小负载、最少连接、加权等）；
-- 支持服务器健康检查和连接重试等功能；
-- 可以动态修改ipset的集合，即使iptables的规则正在使用这个集合。
-
-</br></br>
-
-### k8s架构图及交互流程
-
-![k8s 架构图](https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/bdcb7b4ee4d44862b1d4cd17f0041c84%7Etplv-k3u1fbpfcp-zoom-in-crop-mark%3A4536%3A0%3A0%3A0.image)
-
-k8s 主要有 Master 节点和工作节点组成。主节点主要对集群做出全局决策(比如调度)，以及检测和响应集群事件(例如资源不足，自动扩缩容)；从节点负责维护运行的 Pod 并进行通信的网络代理。
-
-Mater 节点主要有以下组件：
-
-- kube-apiserver：负责对外暴露 Kubernetes API。
-- etcd：作为保存 Kubernetes 所有集群数据的后台数据库。
-- kube-scheduler：在适当的时候进行调度决策，让 Pod 在合适的节点上创建运行。
-- kube-controller-manager：负责监控调整调整集群的状态，比如故障检测、自动扩展、滚动更新等
-
-Node 节点有以下组件：
-
-- kubelet：主要负责执行、监控由调度器分配的 Pod，相当于是 Master 在每个 Node 节点上的代理。保证 Pod 的运行状态与目标状态一致。
-- kube-proxy：k8s 在每个节点上的网络代理，负责为 Service 提供集群内部的服务发现和负载均衡。
-
-</br></br>
 
 ### 简述Kubernetes和Docker的关系
 
@@ -227,25 +161,7 @@ Kubernetes用于关联和编排在多个主机上运行的容器。
 
 </br></br>
 
-### 简述Minikube、Kubectl、Kubelet分别是什么
 
-Minikube是一种可以在本地轻松运行一个单节点Kubernetes群集的工具。
-
-Kubectl是一个命令行工具，可以使用该工具控制Kubernetes集群管理器，如检查群集资源，创建、删除和更新组件，查看应用程序。
-
-Kubelet是一个代理服务，它在每个节点上运行，并使从服务器与主服务器通信。
-
-</br></br>
-
-### 简述Kubernetes常见的部署方式
-
-常见的Kubernetes部署方式有：
-
-- kubeadm，也是推荐的一种部署方式；
-- 二进制；
-- minikube，在本地轻松运行一个单节点Kubernetes群集的工具。
-
-</br></br>
 
 ### Kubernetes的优势、适应场景及其特点
 
@@ -290,15 +206,15 @@ Kubernetes当前存在的缺点（不足）如下：
 
 K8s中对于pod资源对象的健康状态检测，提供了三类probe（探针）来执行对pod的健康监测：
 
-1） livenessProbe探针
+- ##### livenessProbe探针(存活探针)
 
 可以根据用户自定义规则来判定pod是否健康，如果livenessProbe探针探测到容器不健康，则kubelet会根据其重启策略来决定是否重启，如果一个容器不包含livenessProbe探针，则kubelet会认为容器的livenessProbe探针的返回值永远成功。
 
-2） ReadinessProbe探针
+- ##### ReadinessProbe探针(就绪探针)
 
-同样是可以根据用户自定义规则来判断pod是否健康，如果探测失败，控制器会将此pod从对应service的endpoint列表中移除，从此不再将任何请求调度到此Pod上，直到下次探测成功。
+有时候，应用程序会暂时性的不能提供通信服务（例如启动加载大文件）。在这种情况下，既不想杀死应用程序，也不想给它发送请求。Kubernetes 提供了就绪探测器来发现并缓解这些情况，设置后，流量将不会打到 Service 上。
 
-3） startupProbe探针
+- ##### startupProbe探针
 
 启动检查机制，应用一些启动缓慢的业务，避免业务长时间启动而被上面两类探针kill掉，这个问题也可以换另一种方式解决，就是定义上面两类探针机制时，初始化时间定义的长一些即可。
 
@@ -416,7 +332,8 @@ K8s的镜像下载策略有三种：`Always、Never、IFNotPresent`；
 - Always：镜像标签为latest时，总是从指定的仓库中获取镜像；
 - Never：禁止从仓库中下载镜像，也就是说只能使用本地镜像；
 - IfNotPresent：仅当本地没有对应镜像时，才从目标仓库中下载。
-- 默认的镜像下载策略是：当镜像标签是latest时，默认策略是Always；当镜像标签是自定义时（也就是标签不是latest），那么默认策略是IfNotPresent。
+
+默认的镜像下载策略是：当镜像标签是latest时，默认策略是Always；当镜像标签是自定义时（也就是标签不是latest），那么默认策略是IfNotPresent。
 
 </br></br>
 
@@ -434,6 +351,8 @@ K8s的镜像下载策略有三种：`Always、Never、IFNotPresent`；
 
 Pod重启策略（RestartPolicy）应用于Pod内的所有容器，并且仅在Pod所处的Node上由kubelet进行判断和重启操作。当某个容器异常退出或者健康检查失败时，kubelet将根据RestartPolicy的设置来进行相应操作。
 
+> 可以通过命令“kubectl explain pod.spec”查看pod的重启策略。（restartPolicy字段）
+
 Pod的重启策略包括Always、OnFailure和Never，默认值为Always。
 
 - Always：当容器失效时，由kubelet自动重启该容器；
@@ -441,7 +360,7 @@ Pod的重启策略包括Always、OnFailure和Never，默认值为Always。
 - Never：不论容器运行状态如何，kubelet都不会重启该容器。
 
 
-同时Pod的重启策略与控制方式关联，当前可用于管理Pod的控制器包括ReplicationController、Job、DaemonSet及直接管理kubelet管理（静态Pod）。
+同时Pod的重启策略与控制方式关联，当前可用于管理Pod的控制器包括Replication Controller、Job、DaemonSet及直接管理kubelet管理（静态Pod）。
 
 不同控制器的重启策略限制如下：
 
@@ -474,7 +393,7 @@ Kube-apiserver会接受到用户的删除指令，默认有30秒时间等待优�
 
 </br></br>
 
-### service是什么
+### Service是什么
 
 Pod每次重启或者重新部署，其IP地址都会产生变化，这使得pod间通信和pod与外部通信变得困难，这时候，就需要Service为pod提供一个固定的入口。
 
@@ -488,7 +407,7 @@ Pod启动后会加载当前环境所有Service信息，以便不同Pod根据Serv
 
 </br></br>
 
-### k8s集群外流量怎么访问Pod
+### K8S集群外流量怎么访问Pod
 
 可以通过Service的NodePort方式访问，会在所有节点监听同一个端口，比如：30000，访问节点的流量会被重定向到对应的Service上面。
 
