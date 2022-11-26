@@ -1,10 +1,19 @@
-### HTTP 2.0多路复用（multiplexing）
+# HTTP2.0多路复用
+
+### 目录
+
+- [流的概念](#流的概念)
+- [多路复用](#多路复用)
+
+
+
+</br></br>
 
 要了解多路复用，首先要了解下流。
 
+</br>
 
-
-#### 流的概念
+### 流的概念
 
 流（Stream），服务器和客户端在HTTP 2.0连接内用于交换帧数据的独立双向序列，逻辑上可看做一个较为完整的交互处理单元，即表达一次完整的资源请求-响应数据交换流程；一个业务处理单元，在一个流内进行处理完毕，这个流生命周期完结。
 
@@ -21,11 +30,13 @@
 
 
 
-#### 多路复用
+</br></br>
+
+### 多路复用
 
 多路复用允许同时通过**单个HTTP 2.0连接发起多重的请求-响应**（右侧图片）。
 
-![](F:\Flee-as-a-bird-to-your-mountain\网络协议\多路复用0.png)
+![](D:\git_code\Flee-as-a-bird-to-your-mountain\网络协议\pictures\HTTP2.0\多路复用.png)
 
 
 
@@ -33,11 +44,11 @@
 
 逻辑图如下：
 
-![](F:\Flee-as-a-bird-to-your-mountain\网络协议\多路复用1.png)
+![](D:\git_code\Flee-as-a-bird-to-your-mountain\网络协议\pictures\HTTP2.0\多路复用1.png)
 
 实际传输可能是这样的：
 
-![](F:\Flee-as-a-bird-to-your-mountain\网络协议\多路复用2.png)
+![](D:\git_code\Flee-as-a-bird-to-your-mountain\网络协议\pictures\HTTP2.0\多路复用2.png)
 
 就是说在一个TCP连接上，我们可以向对方不断发送一个个的消息，这里每一个消息看成是一帧，而每一帧有个`stream identifier` 的字段标明这一帧属于哪个 `流`，然后在对方接收时，根据 `stream identifier` 拼接每个 `流` 的所有帧组成一整块数据。我们把 HTTP/1.x 每个请求都当作一个 `流`，那么请求化成多个流，请求响应数据切成多个帧，不同流中的帧交错地发送给对方，这就是HTTP/2中的 `多路复用`。
 
