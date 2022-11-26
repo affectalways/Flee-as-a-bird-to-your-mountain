@@ -1,8 +1,21 @@
-### ARQ协议
+# ARQ协议
+
+#### 目录
+
+- [停止等待ARQ协议](#停止等待ARQ协议)
+- [连续ARQ协议](#连续ARQ协议)
+
+
+
+</br></br>
 
 **自动重传请求**（Automatic Repeat-reQuest，ARQ）是 OSI 模型中数据链路层和传输层的错误纠正协议之一。它通过使用确认和超时这两个机制，在不可靠服务的基础上实现可靠的信息传输。如果发送方在发送后一段时间之内没有收到确认帧，它通常会重新发送。ARQ 包括停止等待 ARQ 协议和连续 ARQ 协议。
 
-#### [停止等待 ARQ 协议](https://snailclimb.gitee.io/javaguide/#/docs/cs-basics/network/计算机网络?id=停止等待-arq-协议)
+
+
+</br></br>
+
+#### [停止等待ARQ协议](https://snailclimb.gitee.io/javaguide/#/docs/cs-basics/network/计算机网络?id=停止等待-arq-协议)
 
 停止等待协议是为了实现可靠传输的，它的基本原理就是每发完一个分组就停止发送，等待对方确认（回复 ACK）。如果过了一段时间（超时时间后），还是没有收到 ACK 确认，说明没有发送成功，需要重新发送，直到收到确认后再发下一个分组。
 
@@ -28,9 +41,9 @@
 
 
 
+</br></br>
 
-
-#### [连续 ARQ 协议](https://snailclimb.gitee.io/javaguide/#/docs/cs-basics/network/计算机网络?id=连续-arq-协议)
+#### [连续ARQ协议](https://snailclimb.gitee.io/javaguide/#/docs/cs-basics/network/计算机网络?id=连续-arq-协议)
 
 连续 ARQ 协议可提高信道利用率。发送方维持一个发送窗口，凡位于发送窗口内的分组可以连续发送出去，而不需要等待对方确认。接收方一般采用累计确认，对按序到达的最后一个分组发送确认，表明到这个分组为止的所有分组都已经正确收到了。
 
