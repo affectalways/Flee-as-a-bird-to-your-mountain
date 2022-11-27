@@ -23,7 +23,7 @@
 
 > 网络内尚未被确认收到的数据包数量 = 网络链路上能容纳的数据包数量 = 链路带宽 × 往返延迟
 
-![](D:\git_code\Flee-as-a-bird-to-your-mountain\网络协议\pictures\拥塞控制\TCP拥塞控制.png)
+![](https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/TCP%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6.png)
 
 为了保证水管不会爆管，TCP 维护一个拥塞窗口cwnd（congestion window），用来估计在一段时间内这条链路（水管中）可以承载和运输的数据（水）的数量，拥塞窗口的大小取决于网络的拥塞程度，并且动态地在变化，但是为了达到最大的传输效率，我们该如何知道这条水管的运送效率是多少呢？
 

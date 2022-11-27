@@ -43,7 +43,7 @@ HTTP/2的多路复用就是为了解决上述的两个性能问题。 在 HTTP/2
 
 多路复用允许同时通过**单个HTTP 2.0连接发起多重的请求-响应**（右侧图片）。
 
-![](D:\git_code\Flee-as-a-bird-to-your-mountain\网络协议\pictures\HTTP2.0\多路复用.png)
+![](https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8.png)
 
 
 
@@ -51,11 +51,11 @@ HTTP/2的多路复用就是为了解决上述的两个性能问题。 在 HTTP/2
 
 逻辑图如下：
 
-![](D:\git_code\Flee-as-a-bird-to-your-mountain\网络协议\pictures\HTTP2.0\多路复用1.png)
+![](https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A81.png)
 
 实际传输可能是这样的：
 
-![](D:\git_code\Flee-as-a-bird-to-your-mountain\网络协议\pictures\HTTP2.0\多路复用2.png)
+![](https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A82.png)
 
 就是说在一个TCP连接上，我们可以向对方不断发送一个个的消息，这里每一个消息看成是一帧，而每一帧有个`stream identifier` 的字段标明这一帧属于哪个 `流`，然后在对方接收时，根据 `stream identifier` 拼接每个 `流` 的所有帧组成一整块数据。我们把 HTTP/1.x 每个请求都当作一个 `流`，那么请求化成多个流，请求响应数据切成多个帧，不同流中的帧交错地发送给对方，这就是HTTP/2中的 `多路复用`。
 
