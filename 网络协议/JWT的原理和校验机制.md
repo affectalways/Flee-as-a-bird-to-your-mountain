@@ -1,8 +1,31 @@
-# JWT 的原理和校验机制
+# JWT的原理和校验机制
+
+### 目录
+
+- [跨域认证的问题](#跨域认证的问题)
+- [JWT的原理](#JWT的原理)
+- [JWT的数据结构](#JWT的数据结构)
+  - [Header](#Header)
+  - [Payload](#Payload)
+  - [Signature](#Signature)
+  - [Base64URL](#Base64URL)
+- [JWT的使用方式](#JWT的使用方式)
+- [JWT的几个特点](#JWT的几个特点)
+- [参考链接](#参考链接)
+
+
+
+
+
+</br></br>
 
 JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案，本文介绍它的原理和用法。
 
-## 一、跨域认证的问题
+</br></br>
+
+
+
+### 跨域认证的问题
 
 互联网服务离不开用户认证。一般流程是下面这样。
 
@@ -22,11 +45,17 @@ JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案，�
 
 一种解决方案是 session 数据持久化，写入数据库或别的持久层。各种服务收到请求后，都向持久层请求数据。这种方案的优点是架构清晰，缺点是工程量比较大。另外，持久层万一挂了，就会单点失败。
 
-另一种方案是服务器索性不保存 session 数据了，所有数据都保存在客户端，每次请求都发回服务器。JWT 就是这种方案的一个代表。
+##### 另一种方案是服务器索性不保存 session 数据了，所有数据都保存在客户端，每次请求都发回服务器。JWT 就是这种方案的一个代表。
 
-## 二、JWT 的原理
 
-JWT 的原理是，服务器认证以后，生成一个 JSON 对象，发回给用户，就像下面这样。
+
+</br></br>
+
+### JWT的原理
+
+##### JWT 的原理是，服务器认证以后，生成一个 JSON 对象，发回给用户
+
+就像下面这样
 
 > ```javascript
 > {
@@ -38,9 +67,13 @@ JWT 的原理是，服务器认证以后，生成一个 JSON 对象，发回给�
 
 以后，用户与服务端通信的时候，都要发回这个 JSON 对象。服务器完全只靠这个对象认定用户身份。为了防止用户篡改数据，服务器在生成这个对象的时候，会加上签名（详见后文）。
 
-服务器就不保存任何 session 数据了，也就是说，服务器变成无状态了，从而比较容易实现扩展。
+##### 服务器就不保存任何 session 数据了，也就是说，服务器变成无状态了，从而比较容易实现扩展。
 
-## 三、JWT 的数据结构
+
+
+</br></br>
+
+### JWT的数据结构
 
 实际的 JWT 大概就像下面这样。
 
@@ -64,7 +97,11 @@ JWT 的三个部分依次如下。
 
 下面依次介绍这三个部分。
 
-### 3.1 Header
+
+
+</br>
+
+#### Header
 
 Header 部分是一个 JSON 对象，描述 JWT 的元数据，通常是下面的样子。
 
@@ -79,7 +116,11 @@ Header 部分是一个 JSON 对象，描述 JWT 的元数据，通常是下面�
 
 最后，将上面的 JSON 对象使用 Base64URL 算法（详见后文）转成字符串。
 
-### 3.2 Payload
+
+
+</br>
+
+#### Payload
 
 Payload 部分也是一个 JSON 对象，用来存放实际需要传递的数据。JWT 规定了7个官方字段，供选用。
 
@@ -105,7 +146,11 @@ Payload 部分也是一个 JSON 对象，用来存放实际需要传递的数据
 
 这个 JSON 对象也要使用 Base64URL 算法转成字符串。
 
-### 3.3 Signature
+
+
+</br>
+
+#### Signature
 
 Signature 部分是对前两部分的签名，防止数据篡改。
 
@@ -120,13 +165,21 @@ Signature 部分是对前两部分的签名，防止数据篡改。
 
 算出签名以后，把 Header、Payload、Signature 三个部分拼成一个字符串，每个部分之间用"点"（`.`）分隔，就可以返回给用户。
 
-### 3.4 Base64URL
+
+
+</br>
+
+#### Base64URL
 
 前面提到，Header 和 Payload 串型化的算法是 Base64URL。这个算法跟 Base64 算法基本类似，但有一些小的不同。
 
 JWT 作为一个令牌（token），有些场合可能会放到 URL（比如 api.example.com/?token=xxx）。Base64 有三个字符`+`、`/`和`=`，在 URL 里面有特殊含义，所以要被替换掉：`=`被省略、`+`替换成`-`，`/`替换成`_` 。这就是 Base64URL 算法。
 
-## 四、JWT 的使用方式
+
+
+</br></br>
+
+### JWT的使用方式
 
 客户端收到服务器返回的 JWT，可以储存在 Cookie 里面，也可以储存在 localStorage。
 
@@ -138,7 +191,11 @@ JWT 作为一个令牌（token），有些场合可能会放到 URL（比如 api
 
 另一种做法是，跨域的时候，JWT 就放在 POST 请求的数据体里面。
 
-## 五、JWT 的几个特点
+
+
+</br></br>
+
+### JWT的几个特点
 
 （1）JWT 默认是不加密，但也是可以加密的。生成原始 Token 以后，可以用密钥再加密一次。
 
@@ -152,7 +209,11 @@ JWT 作为一个令牌（token），有些场合可能会放到 URL（比如 api
 
 （6）为了减少盗用，JWT 不应该使用 HTTP 协议明码传输，要使用 HTTPS 协议传输。
 
-## 六、参考链接
+
+
+</br></br>
+
+### 参考链接
 
 - [Introduction to JSON Web Tokens](https://jwt.io/introduction/)， by Auth0
 - [Sessionless Authentication using JWTs (with Node + Express + Passport JS)](https://medium.com/@bryanmanuele/sessionless-authentication-withe-jwts-with-node-express-passport-js-69b059e4b22c), by Bryan Manuele
