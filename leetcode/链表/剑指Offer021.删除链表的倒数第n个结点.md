@@ -44,7 +44,7 @@
 
 > 需要一个哑节点
 
-```
+```python
 class Solution:
     def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
         root_dummy = ListNode(0)
