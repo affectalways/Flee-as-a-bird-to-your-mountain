@@ -36,19 +36,22 @@
 下面是用于定义这个消息类型的 `.proto` 文件。
 
 ```protobuf
+// 指定protobuf的版本，proto3是最新的语法版本
 syntax = "proto3";
 
+// 定义数据结构，message 你可以想象成python的class
 message SearchRequest {
-  string query = 1;
-  int32 page_number = 2;
-  int32 result_per_page = 3;
+  string query = 1; // 定义一个string类型的字段，字段名字为query, 序号为1
+  int32 page_number = 2; // 定义一个int32类型的字段，字段名字为page_number, 序号为2
+  int32 result_per_page = 3;  // 定义一个int32类型的字段，字段名字为result_per_page, 序号为3
 }
 ```
 
 - 文件的第一行指定使用 `proto3` 语法: 如果不这样写，protocol buffer编译器将假定你使用 `proto2`。这个声明必须是文件的第一个非空非注释行。
 - `SearchRequest` 消息定义指定了三个字段(名称/值对) ，每个字段表示希望包含在此类消息中的每一段数据。每个字段都有一个名称和一个类型。
 
-
+> 说明：proto文件中，字段后面的序号，不能重复，定义了就不能修改，可以理解成字段的唯一ID。
+>
 
 </br>
 
@@ -711,3 +714,13 @@ proto3支持 JSON 的规范编码，使得系统之间更容易共享数据。�
 - 以整数而不是字符串形式展示枚举值：在 JSON 输出中，默认情况下使用枚举值的名称。可以提供一个选项来代替使用枚举值的数值。
 
 剩下options等内容本文略。
+
+
+
+
+
+</br></br>
+
+### 参考链接
+
+- https://www.tizi365.com/archives/367.html
