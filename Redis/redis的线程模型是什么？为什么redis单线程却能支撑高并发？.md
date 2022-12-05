@@ -1,6 +1,15 @@
-### redis 的线程模型是什么？为什么 redis 单线程却能支撑高并发？
+# redis的线程模型是什么？为什么redis单线程却能支撑高并发？
 
-### redis 的线程模型
+### 目录
+
+- [redis的线程模型](#redis的线程模型)
+- [为啥redis单线程模型也能效率这么高](#为啥redis单线程模型也能效率这么高)
+
+
+
+</br></br>
+
+### redis的线程模型
 
 redis 内部使用文件事件处理器 `file event handler`，这个文件事件处理器是单线程的，所以 redis 才叫做单线程的模型。它采用 IO 多路复用机制同时监听多个 socket，将产生事件的 socket 压入内存队列中，事件分派器根据 socket 上的事件类型来选择对应的事件处理器进行处理。
 
@@ -29,7 +38,11 @@ redis 内部使用文件事件处理器 `file event handler`，这个文件事�
 
 这样便完成了一次通信。关于 Redis 的一次通信过程，推荐读者阅读《[Redis 设计与实现——黄健宏](https://github.com/doocs/technical-books#database)》进行系统学习。
 
-### 为啥 redis 单线程模型也能效率这么高？
+
+
+</br></br>
+
+### 为啥redis单线程模型也能效率这么高
 
 - 纯内存操作。
 - 核心是基于非阻塞的 IO 多路复用机制。

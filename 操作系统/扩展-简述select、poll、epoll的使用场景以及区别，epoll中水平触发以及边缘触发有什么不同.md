@@ -1,4 +1,4 @@
-### 简述 select, poll, epoll 的使用场景以及区别，epoll 中水平触发以及边缘触发有什么不同？
+# 简述 select, poll, epoll 的使用场景以及区别，epoll 中水平触发以及边缘触发有什么不同？
 
 > https://segmentfault.com/a/1190000003063859
 
@@ -75,7 +75,7 @@ https://github.com/affectalways/Flee-as-a-bird-to-your-mountain/blob/main/%E6%93
 ​	正因为这两个阶段，linux系统产生了下面五种网络模式的方案。
 
 - 阻塞 I/O（blocking IO）
-- 阻塞 I/O（nonblocking IO）
+- 非阻塞 I/O（nonblocking IO）
 - I/O 多路复用（ IO multiplexing）
 - 信号驱动 I/O（ signal driven IO）
 - 异步 I/O（asynchronous IO）
@@ -116,7 +116,7 @@ linux下，可以通过设置socket使其变为non-blocking。当对一个non-bl
 
 ​		`当用户进程调用了select，那么整个进程会被block`，而同时，kernel会“监视”所有select负责的socket，当任何一个socket中的数据准备好了，select就会返回。这个时候用户进程再调用read操作，将数据从kernel拷贝到用户进程。
 
-> 所以，I/O 多路复用的特点是通过一种机制一个进程能同时等待多个文件描述符，而这些文件描述符（套接字描述符）其中的任意一个进入读就绪状态，select()函数就可以返回。
+> 所以，**I/O 多路复用的特点是通过一种机制一个进程能同时等待多个文件描述符，而这些文件描述符（套接字描述符）其中的任意一个进入读就绪状态，select()函数就可以返回。**
 
 ​		这个图和blocking IO的图其实并没有太大的不同，事实上，还更差一些。因为这里需要使用两个system call (select 和 recvfrom)，而blocking IO只调用了一个system call (recvfrom)。但是，用select的优势在于它可以同时处理多个connection。
 
