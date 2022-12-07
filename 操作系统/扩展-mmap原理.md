@@ -1,12 +1,23 @@
-> https://juejin.cn/post/6956031662916534279
+# 扩展-mmap原理
 
-在《[一文看懂零拷贝技术](https://link.juejin.cn?target=https%3A%2F%2Fmp.weixin.qq.com%2Fs%2FduJJTd-YU3yp6MolJ1cDNA)》中我们介绍了 `零拷贝技术` 的原理，而且我们知道 `mmap` 也是零拷贝技术的一种实现。在本文中，我们主要介绍 `mmap` 的原理。
+### 目录
+
+- [传统的读写文件](#传统的读写文件)
+- [使用mmap读写文件](#使用mmap读写文件)
+- [mmap的使用方式](#mmap的使用方式)
+- [总结](#总结)
 
 
 
+</br></br>
+
+在《[扩展-零拷贝技术](扩展-零拷贝技术.md)》中我们介绍了 `零拷贝技术` 的原理，而且我们知道 `mmap` 也是零拷贝技术的一种实现。在本文中，我们主要介绍 `mmap` 的原理。
 
 
-## 一、传统的读写文件
+
+</br></br>
+
+### 传统的读写文件
 
 一般来说，修改一个文件的内容需要如下3个步骤：
 
@@ -16,7 +27,7 @@
 
 过程如图 1 所示：
 
-![read-write.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5b5d56c88f4b49ddba0ed1b014928a49~tplv-k3u1fbpfcp-watermark.awebp)
+![read-write.png](https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/mmap1.png)
 
 如果使用代码来实现上面的过程，代码如下：
 
@@ -31,17 +42,17 @@ write(fd, buf, 1024); // 把buf的内容写入到文件
 
 
 
+</br></br>
 
-
-## 二、使用 mmap 读写文件
+### 使用mmap读写文件
 
 从传统读写文件的过程中，我们可以发现有个地方可以优化：如果可以直接在用户空间读写 `页缓存`，那么就可以免去将 `页缓存` 的数据复制到用户空间缓冲区的过程。
 
 那么，有没有这样的技术能实现上面所说的方式呢？答案是肯定的，就是 `mmap`。
 
-使用 `mmap` 系统调用可以将用户空间的虚拟内存地址与文件进行映射（绑定），对映射后的虚拟内存地址进行读写操作就如同对文件进行读写操作一样。原理如图 2 所示：
+**使用 `mmap` 系统调用可以将用户空间的虚拟内存地址与文件进行映射（绑定），对映射后的虚拟内存地址进行读写操作就如同对文件进行读写操作一样。**原理如图 2 所示：
 
-![mmap.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/35a55af52d3042c79613feb41fc662d3~tplv-k3u1fbpfcp-watermark.awebp)
+![mmap.png](https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/mmap3.png)
 
 前面我们介绍过，读写文件都需要经过 `页缓存`，所以 `mmap` 映射的正是文件的 `页缓存`，而非磁盘中的文件本身。由于 `mmap` 映射的是文件的 `页缓存`，所以就涉及到同步的问题，即 `页缓存` 会在什么时候把数据同步到磁盘。
 
@@ -54,9 +65,9 @@ Linux 内核并不会主动把 `mmap` 映射的 `页缓存` 同步到磁盘，�
 
 
 
+</br></br>
 
-
-## 三、mmap的使用方式
+### mmap的使用方式
 
 下面我们介绍一下怎么使用 `mmap`，`mmap` 函数的原型如下：
 
@@ -111,20 +122,16 @@ void *addr = mmap(NULL, 8192, PROT_WRITE, MAP_SHARED, fd, 4096); // 对文件进
 
 `mmap` 函数会返回映射后的内存地址，我们可以通过此内存地址对文件进行读写操作。我们通过图 3 展示上面例子在内核中的结构：
 
-![mmap-address.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b59dc54fc6fc42a294e3cf1defc1a3b9~tplv-k3u1fbpfcp-watermark.awebp)
+![mmap-address.png](https://raw.githubusercontent.com/affectalways/Flee-as-a-bird-to-your-mountain/main/img/mmap2.png)
 
 
 
+</br></br>
 
-
-## 四、总结
+### 总结
 
 本文主要介绍了 `mmap` 的原理和使用方式，通过本文我们可以知道，使用 `mmap` 对文件进行读写操作时可以减少内存拷贝的次数，并且可以减少系统调用的次数，从而提高对读写文件操作的效率。
 
 由于内核不会主动同步 `mmap` 所映射的内存区中的数据，所以在某些特殊的场景下可能会出现数据丢失的情况（如断电）。为了避免数据丢失，在使用 `mmap` 的时候可以在适当时主动调用 `msync` 函数来同步映射内存区的数据。
 
 
-作者：JaydenLie
-链接：https://juejin.cn/post/6956031662916534279
-来源：掘金
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
