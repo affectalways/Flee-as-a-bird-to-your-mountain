@@ -23,7 +23,7 @@ n 不超过1690。
 
 ### 动态规划
 
-```
+```python
 class Solution:
     def nthUglyNumber(self, n: int) -> int:
         # https://leetcode-cn.com/problems/chou-shu-lcof/solution/mian-shi-ti-49-chou-shu-dong-tai-gui-hua-qing-xi-t/

@@ -76,7 +76,7 @@ class Solution:
             if len(path) > 4:
                 return
             if index == len(s) and len(path) == 4:
-                ans.append(path[:])
+                ans.append('.'.join(path[:]))
                 return
 
             for i in range(index, len(s)):
@@ -85,5 +85,7 @@ class Solution:
                     backtrack(i + 1, path + [tmp])
 
         backtrack(0, [])
+        
+        return ans
 ```
 

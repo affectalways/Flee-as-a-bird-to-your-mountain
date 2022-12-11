@@ -35,7 +35,7 @@
 贪心
 ```
 
-```
+```python
 class Solution:
     def maxProfit(self, prices: list[int]) -> int:
         max_value = 0

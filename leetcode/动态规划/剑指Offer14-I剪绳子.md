@@ -50,12 +50,12 @@ dp[i]表示长度为i的绳子切割段的最大乘积
 **状态转移方程：**
 
 ```
-dp[i] = max(dp[i], max((i-1) * j, j * dp[i-j])
+dp[i] = max(dp[i], max((i-j) * j, j * dp[i-j])
 ```
 
 ![](https://pic.leetcode-cn.com/82b25ac6bcb742f31e5202e4af993d98abfea6a0c385379b214440bbb84b9bb4-14.jpg)
 
-```
+```python
 class Solution:
     def cuttingRope(self, n: int) -> int:
         dp = [0] * (n + 1)
