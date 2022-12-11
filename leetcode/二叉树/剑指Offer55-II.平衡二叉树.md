@@ -45,38 +45,25 @@
 **dfs获取所有路径，取最大路径长度、最小路径长度，两者相减，大于一，就不是平衡二叉树**
 
 ```python
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
-
-class Solution:
-    def isBalanced(self, root: TreeNode):
-        # dfs
+class Solution(object):
+    def isBalanced(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
         if not root:
             return True
-
-        stack = [(root, 0)]
-        ans = []
-        paths = []
-        while stack:
-            cur, depth = stack.pop()
-            while len(paths) > depth:
-                paths.pop()
-
-            paths.append(cur.val)
-            if cur.right:
-                stack.append((cur.right, depth + 1))
-
-            if cur.left:
-                stack.append((cur.left, depth + 1))
-
-            # 注意：只要有一个左右子节点为空，就把该路径长度添加进结果集
-            if not cur.left or not cur.right:
-                ans.append(len(paths[:]))
-                # ans.append(paths[:])
-        return True if max(ans) - min(ans) <= 1 else False
+        
+        if abs(self.dfs(root.left) - self.dfs(root.right)) > 1:
+            return False
+        
+        return self.isBalanced(root.left) and self.isBalanced(root.right)
+            
+        
+    def dfs(self, root):
+        if root is None:
+            return 0
+        
+        return max(self.dfs(root.left), self.dfs(root.right)) + 1
 ```
 
